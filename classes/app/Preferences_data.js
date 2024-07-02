@@ -1,6 +1,6 @@
 import CelestialBody from '../CelestialBody.js';
 import DB from './Database.js';
-import UI from './UserInterface_data.js';
+import UI_Data from './UserInterface_data.js';
 
 class Preferences {
     constructor() {
@@ -16,7 +16,7 @@ class Preferences {
     load() {
 		const savedActiveLocation = String(window.localStorage.getItem('activeLocation'));
 		if (window.location.hash === '' && savedActiveLocation !== 'null') {
-			const result = UI.setMapLocation(savedActiveLocation);
+			const result = UI_Data.setMapLocation(savedActiveLocation);
 			if (!result) Settings_data.#setDefaultLocation();
 
 		} else if (window.location.hash === '') {
@@ -46,27 +46,27 @@ class Preferences {
 		const mapStars = window.localStorage.getItem('mapStars');
 
 		if (mapPlanetTransparency) {
-			UI.el('map-Settings_data-planet-transparency').value = parseInt(mapPlanetTransparency);
+			UI_Data.el('map-Settings_data-planet-transparency').value = parseInt(mapPlanetTransparency);
 		}
 
 		if (mapGrid) {
-			UI.el('map-Settings_data-show-grid').checked = (mapGrid === 'false') ? false : true;
+			UI_Data.el('map-Settings_data-show-grid').checked = (mapGrid === 'false') ? false : true;
 		}
 
 		if (mapTerminator) {
-			UI.el('map-Settings_data-show-terminator').checked = (mapTerminator === 'false') ? false : true;
+			UI_Data.el('map-Settings_data-show-terminator').checked = (mapTerminator === 'false') ? false : true;
 		}
 
 		if (mapOMs) {
-			UI.el('map-Settings_data-show-orbitalmarkers').checked = (mapOMs === 'false') ? false : true;
+			UI_Data.el('map-Settings_data-show-orbitalmarkers').checked = (mapOMs === 'false') ? false : true;
 		}
 
 		if (mapTimes) {
-			UI.el('map-Settings_data-show-times').checked = (mapTimes === 'false') ? false : true;
+			UI_Data.el('map-Settings_data-show-times').checked = (mapTimes === 'false') ? false : true;
 		}
 
 		if (mapStars) {
-			UI.el('map-Settings_data-show-starfield').checked = (mapStars === 'false') ? false : true;
+			UI_Data.el('map-Settings_data-show-starfield').checked = (mapStars === 'false') ? false : true;
 		}
 
 		// ATLAS
@@ -76,19 +76,19 @@ class Preferences {
 		const atlasGrid = window.localStorage.getItem('atlasGrid');
 
 		if (atlasLolli) {
-			UI.el('atlas-Settings_data-show-lollipops').checked = (atlasLolli === 'false') ? false : true;
+			UI_Data.el('atlas-Settings_data-show-lollipops').checked = (atlasLolli === 'false') ? false : true;
 		}
 
 		if (atlasWorm) {
-			UI.el('atlas-Settings_data-show-wormholes').checked = (atlasWorm === 'false') ? false : true;
+			UI_Data.el('atlas-Settings_data-show-wormholes').checked = (atlasWorm === 'false') ? false : true;
 		}
 
 		if (atlasAffil) {
-			UI.el('atlas-Settings_data-show-affiliation').checked = (atlasAffil === 'false') ? false : true;
+			UI_Data.el('atlas-Settings_data-show-affiliation').checked = (atlasAffil === 'false') ? false : true;
 		}
 
 		if (atlasGrid) {
-			UI.el('atlas-Settings_data-show-grid').checked = (atlasGrid === 'false') ? false : true;
+			UI_Data.el('atlas-Settings_data-show-grid').checked = (atlasGrid === 'false') ? false : true;
 		}
 	}
 
