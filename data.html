@@ -25,7 +25,7 @@
 
 <body>
 
-	<section id="selected-location-card">
+	<!--<section id="selected-location-card">
 
 		<div id="selected-location-container">
 
@@ -92,7 +92,7 @@
 	</button>
 	<div id="share-location-message">
 		URL copied to clipboard
-	</div>
+	</div>-->
 
 
 
@@ -117,7 +117,7 @@
 	</section>
 
 
-
+<!--
 	<section class="modal" id="modal-credits">
 		<div id="credits-window">
 			<button id="BUTTON-close-credits" class="closeButton"></button>
@@ -189,6 +189,141 @@
 
 		</div>
 	</section>
+
+
+
+	<section class="modal" id="modal-map">
+		<div id="map-window">
+
+			<button id="BUTTON-close-map" class="closeButton"></button>
+
+			<div id="map-body-name"></div>
+
+			<div id="map-bodyinfo-window" class="map-window">
+				<div class="info-group-table">
+					<p class="info-group-label">Type</p><p class="info-group-data"><span id="map-info-type">XXXX</span></p>
+					<p class="info-group-label">System</p><p class="info-group-data"><span id="map-info-system">XXXX</span></p>
+					<p class="info-group-label">Orbits</p><p class="info-group-data"><span id="map-info-orbits">XXXX</span></p>
+					<p class="info-group-label">Orbital distance</p><p class="info-group-data"><span id="map-info-orbitdistance">X,XXX</span> km</p>
+					<p class="info-group-label">Natural satellites</p><p class="info-group-data"><span id="map-info-naturalsatellites">X</span></p>
+					<p class="info-group-label">Radius</p><p class="info-group-data"><span id="map-info-radius">X,XXX</span> km</p>
+					<p class="info-group-label">Circumference</p><p class="info-group-data"><span id="map-info-circumference">X,XXX</span> km</p>
+					<p class="info-group-label">Rotation rate</p><p class="info-group-data"><span id="map-info-rotationrate">X.X</span></p>
+					<p class="info-group-label">Length of day</p><p class="info-group-data"><span id="map-info-lengthofday">XX:XX:XX</span></p>
+				</div>
+			</div>
+
+			<div id="map-locationinfo-window" class="map-window">
+				<div class="info-group-table">
+					<p class="info-group-label">Name</p><p class="info-group-data"><span id="map-info-locationname"></span></p>
+					<p class="info-group-label">Type</p><p class="info-group-data"><span id="map-info-locationtype"></span></p>
+					<p class="info-group-label">Elevation</p><p class="info-group-data"><span id="map-info-elevation"></span> m</p>
+					<p class="info-group-label">Phase</p><p class="info-group-data"><span id="map-info-phase"></span></p>
+					<p class="info-group-label">Next starrise</p><p class="info-group-data"><span id="map-info-nextstarrise"></span></p>
+					<p class="info-group-label">Next starset</p><p class="info-group-data"><span id="map-info-nextstarset"></span></p>
+				</div>
+			</div>
+
+			<div id="map-settings-window" class="map-window">
+				<h3>Map settings</h3>
+				<div id="map-settings-container">
+					<p>Opacity</p>
+					<input type="range" min="0" max="100" value="20" class="slider" style="width:80px;" id="map-settings-planet-transparency">
+
+					<p>Times</p>
+					<input type="checkbox" id="map-settings-show-times" checked>
+
+					<p>Shadow</p>
+					<input type="checkbox" id="map-settings-show-terminator" checked>
+
+					<p>OMs</p>
+					<input type="checkbox" id="map-settings-show-orbitalmarkers" checked>
+
+					<p>Grid</p>
+					<input type="checkbox" id="map-settings-show-grid" checked>
+
+					<p>Stars</p>
+					<input type="checkbox" id="map-settings-show-starfield" checked>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+
+
+    <section class="modal" id="modal-atlas">
+        <div id="atlas-loading-screen">
+            <div>
+                <p>Loading</p>
+				<div class="la-ball-newton-cradle">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+                <progress id="atlas-loading-bar" value="0" max="100"> </progress>
+            </div>
+        </div>
+
+        <button id="BUTTON-close-atlas" class="closeButton"></button>
+
+
+        <div id="atlas-container">
+
+            <div id="atlas-debug-info" style="display:none;">
+                <p class="atlas-debug-header">DEBUG DATA</p>
+                <p class="atlas-debug-header">CAMERA</p>
+                <p>X <span id="atlas-debug-x"></span></p>
+                <p>Y <span id="atlas-debug-y"></span></p>
+                <p>Z <span id="atlas-debug-z"></span></p>
+                <p>Zoom: <span id="atlas-zoom"></span></p>
+				<p>Min : <span id="atlas-min-zoom"></span></p>
+				<p>Scale: <span id="atlas-scale"></span><br />= <span id="atlas-scale-units"></span></p>
+				<p>Rotate speed: <span id="atlas-rotate-speed"></span></p>
+                <br />
+                <p class="atlas-debug-header">FOCUS</p>
+                <p>System: <span id="atlas-focus-system"></span></p>
+                <p>Object: <span id="atlas-focus-object"></span></p>
+                <p>Class: <span id="atlas-focus-object-class"></span></p>
+                <p>Radius: <span id="atlas-focus-object-radius"></span></p>
+            </div>
+
+            <div id="atlas-sidebar" class="map-window">
+                <h2>System Overview</h2>
+                <ul id="atlas-treelist" class="treelist">
+                </ul>
+            </div>
+
+			<div id="atlas-hierarchy">
+				SYSTEM ▸ BODY ▸ CHILDBODY ▸ LOCATION
+			</div>
+
+            <div id="atlas-hoverinfo" class="atlas-ui-window"></div>
+
+            <div id="atlas-settings-window" class="map-window">
+                <h3>Settings</h3>
+                <div id="atlas-settings-container">
+                    <p>Lollipops</p>
+                    <input type="checkbox" id="atlas-settings-show-lollipops" checked>
+
+                    <p>Wormholes</p>
+                    <input type="checkbox" id="atlas-settings-show-wormholes" checked>
+
+                    <p>Affliation</p>
+                    <input type="checkbox" id="atlas-settings-show-affiliation" checked>
+
+                    <p>Polar Grid</p>
+                    <input type="checkbox" id="atlas-settings-show-grid" checked>
+
+                    <p>Starfield</p>
+                    <input type="checkbox" id="atlas-settings-show-starfield" checked>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 
 
 	<section id="detailed-info">
@@ -264,9 +399,9 @@
 			<p>Value: <span id="db-next-starset"></span> sec (= <span id="db-next-starset-countdown"></span>)</p>
 			<p>Date: <span id="db-next-starset-date"></span></p>
 		</div>
-	</section>
+	</section>-->
 
 </body>
 
-<script src="main.js" type="module"></script>
+<script src="main_data.js" type="module"></script>
 </html>
