@@ -15,18 +15,18 @@ class UserInterface {
 		this.bgElement = document.getElementById('selected-location-bg-image');
 		this.bgColor = this.bgElement.style.backgroundColor;
 
-		this.atlasModal = document.getElementById('modal-atlas');
-		this.atlasContainer = document.getElementById('atlas-container');
-		this.mapModal = document.getElementById('modal-map');
-		this.mapContainer = document.getElementById('map-window');
-		this.atlasInfobox = document.getElementById('atlas-hoverinfo');
+		//this.atlasModal = document.getElementById('modal-atlas');
+		//this.atlasContainer = document.getElementById('atlas-container');
+		//this.mapModal = document.getElementById('modal-map');
+		//this.mapContainer = document.getElementById('map-window');
+		//this.atlasInfobox = document.getElementById('atlas-hoverinfo');
 
-		this.mapHoverLocation = null;
+		//this.mapHoverLocation = null;
 		this.locationSelectedIndex = -1;
 		this.visibleButtons = [];
 
-		this.Atlas = new Window('modal-atlas', 'atlas-container', 'createAtlasScene');
-		this.Map = new Window('modal-map', 'map-window', 'createMapScene');
+		//this.Atlas = new Window('modal-atlas', 'atlas-container', 'createAtlasScene');
+		//this.Map = new Window('modal-map', 'map-window', 'createMapScene');
 		this.Settings = new Window('modal-settings', 'settings-window', null);
 		this.Debug = new Window('detailed-info', null, null);
 		this.Credits = new Window('modal-credits', null, null);
@@ -64,11 +64,11 @@ class UserInterface {
 		// KEYBOARD TOGGLES
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				if (UI.Atlas.show) UI.Atlas.toggle();
-				if (UI.Map.show) UI.Map.toggle();
+				//if (UI.Atlas.show) UI.Atlas.toggle();
+				//if (UI.Map.show) UI.Map.toggle();
 				if (UI.Settings.show) UI.Settings.toggle();
 				if (UI.Credits.show) UI.Credits.toggle();
-				if (UI.Debug.show) UI.Debug.toggle();
+				//if (UI.Debug.show) UI.Debug.toggle();
 
 				return;
 			}
@@ -113,18 +113,6 @@ class UserInterface {
 			}
 
 			if (event.target.tagName.toLowerCase() === 'input') return;
-
-
-
-
-			if (event.key === 'd') {
-				UI.Debug.toggle();
-
-				if (UI.Debug.show) {
-					DB.getLocationsWithoutImage();
-					DB.getLocationsWithoutWikiLink();
-				}
-			}
 		});
 
 
@@ -505,7 +493,7 @@ class UserInterface {
 		UI.setText('db-next-starset-date', next);
 	}
 
-
+/**
 	// ===============
 	// MAIN INTERFACE
 	// ===============
@@ -546,7 +534,7 @@ class UserInterface {
 		}, 1000);
 
 		return true;
-	}
+	}*/
 
 	populateLocationList() {
 		let container = document.getElementById('available-locations-list');
@@ -579,7 +567,7 @@ class UserInterface {
 		}
 	}
 
-	showMapLocationData(location, triggerElement) {
+	/*showMapLocationData(location, triggerElement) {
 		UI.mapHoverLocation = location;
 
 		document.getElementById('map-locationinfo-window').style.opacity = 1;
@@ -626,9 +614,9 @@ class UserInterface {
 		UI.el('map-locationinfo-window').style.opacity = 0;
 		UI.mapHoverLocation = null;
 		clearInterval(UI.#updateMapLocationData);
-	}
+	}*/
 
-
+/**
 	// ===============
 	// ATLAS
 	// ===============
@@ -755,7 +743,7 @@ class UserInterface {
 
 	#populateInfobox(object) {
 		console.warn('populateInfobox not implemented');
-	}
+	}*/
 }
 
 const UI = new UserInterface();
