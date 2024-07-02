@@ -1,4 +1,4 @@
-import Settings from './classes/app/Preferences.js';
+import Settings_data from './classes/app/Preferences_data.js';
 import DB from './classes/app/Database.js';
 import UI_data from './classes/app/UserInterface_data.js';
 
