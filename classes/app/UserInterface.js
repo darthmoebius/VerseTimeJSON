@@ -30,7 +30,6 @@ class UserInterface {
 		this.Settings = new Window('modal-settings', 'settings-window', null);
 		this.Debug = new Window('detailed-info', null, null);
 		this.Credits = new Window('modal-credits', null, null);
-		UI.Debug.toggle(); // default show
 	}
 
 	getButtons() {
@@ -206,7 +205,11 @@ class UserInterface {
 		UI.#update_setIlluminationStatus();
 
 		if (UI.Settings.show) UI.updateSettingsLocationTimes();
-		if (UI.Debug.show) UI.updateDebugUI();
+		if (UI.Debug.show) {
+			UI.updateDebugUI();
+		}else{
+			UI.Debug.toggle(); // default show
+		}
 	}
 
 	#update_setColors() {
