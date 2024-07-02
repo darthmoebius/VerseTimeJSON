@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+//import * as THREE from 'three';
 import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
 
@@ -180,7 +180,7 @@ export function calculateGreatCircleDistance(x1, y1, z1, x2, y2, z2, radius) {
 	return radius * c;
 }
 
-export function makeLine(x1, y1, z1, x2, y2, z2, mat) {
+/*export function makeLine(x1, y1, z1, x2, y2, z2, mat) {
 	const p = [];
 	p.push(new THREE.Vector3(x1, y1, z1));
 	p.push(new THREE.Vector3(x2, y2, z2));
@@ -212,7 +212,7 @@ export function makeCircle(radius, detail, centerX, centerY, centerZ, rotationX,
 	const circle = new THREE.Line(geo, material);
 
 	return circle;
-}
+}*/
 
 export function getHashedLocation() {
 	let loc = Settings.activeLocation?.NAME;

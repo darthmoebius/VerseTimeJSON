@@ -1,5 +1,5 @@
 import { degrees, radians, modulo, square } from '../HelperFunctions.js';
-import * as THREE from 'three';
+//import * as THREE from 'three';
 import DB from './app/Database.js';
 
 export default class Location {
@@ -87,7 +87,7 @@ export default class Location {
 		this.STARRISE_AND_STARSET_ANGLE = degrees(p1) + this.PARENT.APPARENT_RADIUS(this.PARENT_STAR) + this.ELEVATION_IN_DEGREES;
 	}
 
-	#calculate3dMapCoordinates() {
+	/*#calculate3dMapCoordinates() {
 		// NORMALIZED COORDINATES FOR 3D MAP
 		let x = -this.COORDINATES.x / this.PARENT.BODY_RADIUS; // -x adjusts for rotation direction in local 3D map
 		let y = this.COORDINATES.y / this.PARENT.BODY_RADIUS;
@@ -107,7 +107,7 @@ export default class Location {
 			'y': y,
 			'z': z
 		}
-	}
+	}*/
 
 	HOUR_ANGLE() {
 		const subResult = modulo(this.LONGITUDE_360 - this.PARENT.STATIC_MERIDIAN(), 360);

@@ -1,6 +1,6 @@
 import { degrees, modulo, square, getJulianDate, calculateDistance2D } from '../HelperFunctions.js';
 import DB from './app/Database.js';
-import * as THREE from 'three';
+//import * as THREE from 'three';
 
 export default class CelestialBody {
 	constructor(name, type, parentBody, parentStar, coordinates, rotationQuaternion, bodyRadius, rotationRate, rotationCorrection, orbitalAngle, orbitalRadius, themeColor = null, themeImage = null) {
@@ -194,7 +194,7 @@ export default class CelestialBody {
 		return calculateDistance2D(this.COORDINATES.x, this.COORDINATES.y, this.PARENT.COORDINATES.x, this.PARENT.COORDINATES.y);
 	}
 
-	#calculateVectorToStar() {
+	/*#calculateVectorToStar() {
 		if (this.PARENT_STAR === null) {
 			this.PARENT_STAR_DIRECTION = null;
 			return;
@@ -206,5 +206,5 @@ export default class CelestialBody {
 		starDirection.subVectors(v2, v1).normalize();
 
 		this.PARENT_STAR_DIRECTION = starDirection;
-	}
+	}*/
 }
