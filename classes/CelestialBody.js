@@ -31,7 +31,7 @@ export default class CelestialBody {
 
 		this.RING = null;
 
-		this.#calculateVectorToStar();
+		//this.#calculateVectorToStar();
 
 		DB.bodies.push(this);
 	}
