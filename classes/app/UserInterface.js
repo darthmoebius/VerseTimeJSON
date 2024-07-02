@@ -520,12 +520,12 @@ class UserInterface {
 			UI.el('available-locations-list').scroll(0, 0);
 		}
 
-		if (this.Map.show) {
+		/*if (this.Map.show) {
 			if (previousLocation.PARENT !== Settings.activeLocation.PARENT) {
 				document.dispatchEvent(new CustomEvent('createMapScene'));
 			}
 			document.dispatchEvent(new CustomEvent('moveMapCameraAboveActiveLocation'));
-		}
+		}*/
 
 		window.suppressReload = true;
 		parent.location.hash = getHashedLocation();
