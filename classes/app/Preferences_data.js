@@ -2,7 +2,7 @@ import CelestialBody from '../CelestialBody.js';
 import DB from './Database.js';
 import UI_Data from './UserInterface_data.js';
 
-class Preferences {
+class Preferences_data {
     constructor() {
         if (Preferences.instance) return Preferences.instance;
 		Preferences.instance = this;

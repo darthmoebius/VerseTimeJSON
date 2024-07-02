@@ -7,7 +7,7 @@ import SolarSystem from '../SolarSystem.js';
 import Star from '../Star.js';
 
 
-class UserInterface {
+class UserInterface_data {
     constructor() {
         if (UserInterface.instance) return UserInterface.instance;
 		UserInterface.instance = this;
@@ -18,7 +18,7 @@ class UserInterface {
 		this.locationSelectedIndex = -1;
 		this.visibleButtons = [];
 
-		this.Settings_data = new Window('modal-Settings_data', 'Settings_data-window', null);
+		this.Settings_data = new Window('modal-Settings', 'Settings-window', null);
 		//this.Debug = new Window('detailed-info', null, null);
 		//this.Credits = new Window('modal-credits', null, null);
 	}
@@ -176,7 +176,7 @@ class UserInterface {
 		//UI_Data.#update_setIlluminationStatus();
 
 		if (UI_Data.Settings_data.show) {
-			UI_Data.updateSettings_dataLocationTimes();
+			UI_Data.updateSettingsLocationTimes();
 		}else{
 			UI_Data.Settings_data.toggle(); // default show
 		}
@@ -363,7 +363,7 @@ class UserInterface {
 		}, 1000);
 	}
 
-	updateSettings_dataLocationTimes() {
+	updateSettingsLocationTimes() {
 		let buttons = document.getElementsByClassName('BUTTON-set-location');
 
 		for (let element of buttons) {
