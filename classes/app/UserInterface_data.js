@@ -1,4 +1,4 @@
-import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
+import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions_data.js';
 import Settings_data from './Preferences_data.js';
 import DB from './Database.js';
 import Window from './Window.js';
@@ -18,7 +18,7 @@ class UserInterface_data {
 		this.locationSelectedIndex = -1;
 		this.visibleButtons = [];
 
-		this.Settings_data = new Window('modal-settings', 'Settings-window', null);
+		this.Settings_data = new Window('modal-settings', 'settings-window', null);
 		//this.Debug = new Window('detailed-info', null, null);
 		//this.Credits = new Window('modal-credits', null, null);
 	}
