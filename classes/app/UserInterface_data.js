@@ -1,5 +1,5 @@
 import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
-import Settings from './Preferences_data.js';
+import Settings_data from './Preferences_data.js';
 import DB from './Database.js';
 import Window from './Window.js';
 
@@ -18,7 +18,7 @@ class UserInterface {
 		this.locationSelectedIndex = -1;
 		this.visibleButtons = [];
 
-		this.Settings = new Window('modal-settings', 'settings-window', null);
+		this.Settings_data = new Window('modal-Settings_data', 'Settings_data-window', null);
 		//this.Debug = new Window('detailed-info', null, null);
 		//this.Credits = new Window('modal-credits', null, null);
 	}
@@ -37,8 +37,8 @@ class UserInterface {
 
 	setupEventListeners() {
 		// CLICKS
-		//this.listen('click', 'BUTTON-open-settings', () => { UI_Data.Settings.toggle(); UI_Data.el('location-selection-input').focus(); });
-		//this.listen('click', 'BUTTON-close-settings', () => { UI_Data.Settings.toggle(); });
+		//this.listen('click', 'BUTTON-open-Settings_data', () => { UI_Data.Settings_data.toggle(); UI_Data.el('location-selection-input').focus(); });
+		//this.listen('click', 'BUTTON-close-Settings_data', () => { UI_Data.Settings_data.toggle(); });
 
 		//this.listen('click', 'BUTTON-toggle-credits-window', () => { UI_Data.Credits.toggle(); });
 		//this.listen('click', 'BUTTON-close-credits', () => { UI_Data.Credits.toggle(); });
@@ -50,12 +50,12 @@ class UserInterface {
 		/*
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				if (UI_Data.Settings.show) UI_Data.Settings.toggle();
+				if (UI_Data.Settings_data.show) UI_Data.Settings_data.toggle();
 				if (UI_Data.Credits.show) UI_Data.Credits.toggle();
 
 				return;
 			}
-			if (UI_Data.Settings.show) {
+			if (UI_Data.Settings_data.show) {
 
 				// get visible buttons once
 				if (this.locationSelectedIndex === -1) {
@@ -108,7 +108,7 @@ class UserInterface {
 
 		// KEYBOARD SEARCH
 		document.addEventListener('keyup', (event) => {
-			if (UI_Data.Settings.show && event.key === 'Enter') {
+			if (UI_Data.Settings_data.show && event.key === 'Enter') {
 				let selected = this.getSelectedButton();
 				if(selected) {
 					UI_Data.setMapLocation(selected.dataset.locationName);
@@ -125,7 +125,7 @@ class UserInterface {
 			if (event.target.tagName.toLowerCase() === 'input') return;
 
 			if (event.key === '/') {
-				if (!UI_Data.Settings.show) UI_Data.Settings.toggle();
+				if (!UI_Data.Settings_data.show) UI_Data.Settings_data.toggle();
 				this.locationSelectedIndex = -1;
 				this.getSelectedButton()?.classList.remove('selected');
 				UI_Data.el('location-selection-input').focus();
@@ -175,15 +175,15 @@ class UserInterface {
 		//UI_Data.#update_setRiseAndSetData();
 		//UI_Data.#update_setIlluminationStatus();
 
-		if (UI_Data.Settings.show) {
-			UI_Data.updateSettingsLocationTimes();
+		if (UI_Data.Settings_data.show) {
+			UI_Data.updateSettings_dataLocationTimes();
 		}else{
-			UI_Data.Settings.toggle(); // default show
+			UI_Data.Settings_data.toggle(); // default show
 		}
 	}
 
 	/*#update_setColors() {
-		const col = Settings.activeLocation.THEME_COLOR;
+		const col = Settings_data.activeLocation.THEME_COLOR;
 		const colorMain = `rgb(${col.r}, ${col.g}, ${col.b})`;
 		const colorDark = `rgb(${col.r * 0.2}, ${col.g * 0.2}, ${col.b * 0.2})`;
 
@@ -194,48 +194,48 @@ class UserInterface {
 	}
 
 	#update_setThemeImage() {
-		const url = `url('${Settings.activeLocation.THEME_IMAGE}')`;
+		const url = `url('${Settings_data.activeLocation.THEME_IMAGE}')`;
 		if (UI_Data.bgElement.style.backgroundImage !== url) UI_Data.bgElement.style.backgroundImage = url;
 	}*/
 
 	#update_setLocationInfo() {
 		if (
-			Settings.activeLocation.ILLUMINATION_STATUS === 'Polar Day' ||
-			Settings.activeLocation.ILLUMINATION_STATUS === 'Polar Night' ||
-			Settings.activeLocation.LOCAL_TIME.toString() === 'NaN'
+			Settings_data.activeLocation.ILLUMINATION_STATUS === 'Polar Day' ||
+			Settings_data.activeLocation.ILLUMINATION_STATUS === 'Polar Night' ||
+			Settings_data.activeLocation.LOCAL_TIME.toString() === 'NaN'
 		) {
-			UI_Data.setText('local-time', Settings.activeLocation.ILLUMINATION_STATUS);
+			UI_Data.setText('local-time', Settings_data.activeLocation.ILLUMINATION_STATUS);
 		} else {
-			UI_Data.setText('local-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_TIME / 60 / 60, false));
+			UI_Data.setText('local-time', convertHoursToTimeString(Settings_data.activeLocation.LOCAL_TIME / 60 / 60, false));
 		}
-		if (Settings.customTime !== 'now') {
+		if (Settings_data.customTime !== 'now') {
 			UI_Data.setText('chosen-time', getCustomTime().toLocaleString());
 			UI_Data.setText('chosen-time-sublabel', 'local selected time');
 		} else {
 			UI_Data.setText('chosen-time', '');
 			UI_Data.setText('chosen-time-sublabel', '');
 		}
-		UI_Data.setText('location-name', Settings.activeLocation.NAME);
-		UI_Data.setText('location-body-name', Settings.activeLocation.PARENT.NAME);
+		UI_Data.setText('location-name', Settings_data.activeLocation.NAME);
+		UI_Data.setText('location-body-name', Settings_data.activeLocation.PARENT.NAME);
 	}
 
 	/*#update_setRiseAndSetData() {
 		// COUNTDOWNS
-		let nextRise = Settings.activeLocation.NEXT_STAR_RISE;
+		let nextRise = Settings_data.activeLocation.NEXT_STAR_RISE;
 		if (!nextRise) {
 			UI_Data.setText('next-rise-countdown', '---');
 
 		} else {
-			nextRise = Settings.activeLocation.IS_STAR_RISING_NOW ? '- NOW -' : convertHoursToTimeString(nextRise * 24, true, false);
+			nextRise = Settings_data.activeLocation.IS_STAR_RISING_NOW ? '- NOW -' : convertHoursToTimeString(nextRise * 24, true, false);
 			UI_Data.setText('next-rise-countdown', nextRise);
 		}
 
-		let nextSet = Settings.activeLocation.NEXT_STAR_SET;
+		let nextSet = Settings_data.activeLocation.NEXT_STAR_SET;
 		if (!nextSet) {
 			UI_Data.setText('next-set-countdown', '---');
 
 		} else {
-			nextSet = Settings.activeLocation.IS_STAR_SETTING_NOW ? '- NOW -' : convertHoursToTimeString(nextSet * 24, true, false);
+			nextSet = Settings_data.activeLocation.IS_STAR_SETTING_NOW ? '- NOW -' : convertHoursToTimeString(nextSet * 24, true, false);
 			UI_Data.setText('next-set-countdown', nextSet);
 		}
 
@@ -244,13 +244,13 @@ class UserInterface {
 		if (!nextRise) {
 			UI_Data.setText('local-rise-time', '---');
 		} else {
-			UI_Data.setText('local-rise-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_STAR_RISE_TIME * 24, false, true));
+			UI_Data.setText('local-rise-time', convertHoursToTimeString(Settings_data.activeLocation.LOCAL_STAR_RISE_TIME * 24, false, true));
 		}
 
 		if (!nextSet) {
 			UI_Data.setText('local-set-time', '---');
 		} else {
-			UI_Data.setText('local-set-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_STAR_SET_TIME * 24, false, true));
+			UI_Data.setText('local-set-time', convertHoursToTimeString(Settings_data.activeLocation.LOCAL_STAR_SET_TIME * 24, false, true));
 		}
 
 
@@ -259,7 +259,7 @@ class UserInterface {
 		if (!nextRise) {
 			UI_Data.setText('next-rise-time', '---');
 		} else {
-			const rise = now.setSeconds(now.getSeconds() + (Settings.activeLocation.NEXT_STAR_RISE * 86400));
+			const rise = now.setSeconds(now.getSeconds() + (Settings_data.activeLocation.NEXT_STAR_RISE * 86400));
 			UI_Data.setText('next-rise-time', convertDateToShortTime(new Date(rise)));
 		}
 
@@ -267,7 +267,7 @@ class UserInterface {
 		if (!nextSet) {
 			UI_Data.setText('next-set-time', '---');
 		} else {
-			const set = now.setSeconds(now.getSeconds() + (Settings.activeLocation.NEXT_STAR_SET * 86400));
+			const set = now.setSeconds(now.getSeconds() + (Settings_data.activeLocation.NEXT_STAR_SET * 86400));
 			UI_Data.setText('next-set-time', convertDateToShortTime(new Date(set)));
 		}
 	}*/
@@ -276,7 +276,7 @@ class UserInterface {
 		let scDate = getCustomTime();
 		scDate.setFullYear(scDate.getFullYear() + 930);
 		let scDateString = scDate.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' });
-		UI_Data.setText('illumination-status', Settings.activeLocation.ILLUMINATION_STATUS + '\r\n' + scDateString);
+		UI_Data.setText('illumination-status', Settings_data.activeLocation.ILLUMINATION_STATUS + '\r\n' + scDateString);
 	}*/
 
 
@@ -354,7 +354,7 @@ class UserInterface {
 			newCustomTime = 'now';
 		}
 
-		Settings.customTime = newCustomTime;
+		Settings_data.customTime = newCustomTime;
 
 		window.suppressReload = true;
 		parent.location.hash = getHash();
@@ -363,7 +363,7 @@ class UserInterface {
 		}, 1000);
 	}
 
-	updateSettingsLocationTimes() {
+	updateSettings_dataLocationTimes() {
 		let buttons = document.getElementsByClassName('BUTTON-set-location');
 
 		for (let element of buttons) {
@@ -382,8 +382,8 @@ class UserInterface {
 	}
 
 	/*updateDebugUI_Data() {
-		let loc = Settings.activeLocation;
-		let bod = Settings.activeLocation ? Settings.activeLocation.PARENT : null;
+		let loc = Settings_data.activeLocation;
+		let bod = Settings_data.activeLocation ? Settings_data.activeLocation.PARENT : null;
 
 		UI_Data.setText('db-hash', window.location.hash);
 
@@ -488,12 +488,12 @@ class UserInterface {
 			return false;
 		}
 
-		const previousLocation = Settings.activeLocation ?? null;
+		const previousLocation = Settings_data.activeLocation ?? null;
 
-		Settings.activeLocation = location;
-		Settings.save('activeLocation', Settings.activeLocation.NAME);
-		if (UI_Data.Settings.show) {
-			UI_Data.Settings.toggle();
+		Settings_data.activeLocation = location;
+		Settings_data.save('activeLocation', Settings_data.activeLocation.NAME);
+		if (UI_Data.Settings_data.show) {
+			UI_Data.Settings_data.toggle();
 			UI_Data.el('location-selection-input').value = '';
 			UI_Data.el('location-selection-input').blur();
 			this.locationSelectedIndex = -1;
