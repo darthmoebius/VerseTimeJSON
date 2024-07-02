@@ -4,8 +4,8 @@ import UI_Data from './UserInterface_data.js';
 
 class Preferences_data {
     constructor() {
-        if (Preferences.instance) return Preferences.instance;
-		Preferences.instance = this;
+        if (Preferences_data.instance) return Preferences_data.instance;
+		Preferences_data.instance = this;
 
 		this.use24HourTime = true;
 		this.activeLocation = null;
@@ -144,5 +144,5 @@ class Preferences_data {
 	}
 }
 
-const Settings_data = new Preferences_data();
+const Settings_data = new Preferences_data_data();
 export default Settings_data;
