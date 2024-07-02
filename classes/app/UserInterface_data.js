@@ -1,5 +1,5 @@
 import { round, getHashedLocation, getHash, convertHoursToTimeString, getCustomTime, convertDateToShortTime, getUniverseTime, getLocationByName } from '../../HelperFunctions.js';
-import Settings from './Preferences.js';
+import Settings from './Preferences_data.js';
 import DB from './Database.js';
 import Window from './Window.js';
 
