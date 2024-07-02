@@ -22,7 +22,7 @@ export default class Location {
 		this.#calculateLongitude360();
 		this.#calculateElevation();
 		this.#calculateRiseSetAngle();
-		this.#calculate3dMapCoordinates();
+		//this.#calculate3dMapCoordinates();
 
 		// FINALIZATION
 		DB.locations.push(this);
