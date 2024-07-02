@@ -15,18 +15,9 @@ class UserInterface {
 		this.bgElement = document.getElementById('selected-location-bg-image');
 		this.bgColor = this.bgElement.style.backgroundColor;
 
-		//this.atlasModal = document.getElementById('modal-atlas');
-		//this.atlasContainer = document.getElementById('atlas-container');
-		//this.mapModal = document.getElementById('modal-map');
-		//this.mapContainer = document.getElementById('map-window');
-		//this.atlasInfobox = document.getElementById('atlas-hoverinfo');
-
-		//this.mapHoverLocation = null;
 		this.locationSelectedIndex = -1;
 		this.visibleButtons = [];
 
-		//this.Atlas = new Window('modal-atlas', 'atlas-container', 'createAtlasScene');
-		//this.Map = new Window('modal-map', 'map-window', 'createMapScene');
 		this.Settings = new Window('modal-settings', 'settings-window', null);
 		this.Debug = new Window('detailed-info', null, null);
 		this.Credits = new Window('modal-credits', null, null);
@@ -46,12 +37,6 @@ class UserInterface {
 
 	setupEventListeners() {
 		// CLICKS
-		this.listen('click', 'BUTTON-toggle-atlas-window', () => { UI.Atlas.toggle(); });
-		this.listen('click', 'BUTTON-close-atlas', () => { UI.Atlas.toggle(); });
-
-		this.listen('click', 'BUTTON-toggle-map-window', () => { UI.Map.toggle(); });
-		this.listen('click', 'BUTTON-close-map', () => { UI.Map.toggle(); });
-
 		this.listen('click', 'BUTTON-open-settings', () => { UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
 		this.listen('click', 'BUTTON-close-settings', () => { UI.Settings.toggle(); });
 
@@ -64,11 +49,8 @@ class UserInterface {
 		// KEYBOARD TOGGLES
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				//if (UI.Atlas.show) UI.Atlas.toggle();
-				//if (UI.Map.show) UI.Map.toggle();
 				if (UI.Settings.show) UI.Settings.toggle();
 				if (UI.Credits.show) UI.Credits.toggle();
-				//if (UI.Debug.show) UI.Debug.toggle();
 
 				return;
 			}
@@ -520,13 +502,6 @@ class UserInterface {
 			UI.el('available-locations-list').scroll(0, 0);
 		}
 
-		/*if (this.Map.show) {
-			if (previousLocation.PARENT !== Settings.activeLocation.PARENT) {
-				document.dispatchEvent(new CustomEvent('createMapScene'));
-			}
-			document.dispatchEvent(new CustomEvent('moveMapCameraAboveActiveLocation'));
-		}*/
-
 		window.suppressReload = true;
 		parent.location.hash = getHashedLocation();
 		setTimeout(() => {
@@ -566,184 +541,6 @@ class UserInterface {
 			container.appendChild(el);
 		}
 	}
-
-	/*showMapLocationData(location, triggerElement) {
-		UI.mapHoverLocation = location;
-
-		document.getElementById('map-locationinfo-window').style.opacity = 1;
-
-		UI.setText('map-info-locationname', location.NAME);
-		UI.setText('map-info-locationtype', location.TYPE);
-		UI.setText('map-info-elevation', Math.round(location.ELEVATION * 1000, 1).toLocaleString());
-		UI.#updateMapLocationData();
-		setInterval(UI.#updateMapLocationData, 250);
-	}
-
-	#updateMapLocationData() {
-		if (!UI.mapHoverLocation) return;
-		UI.setText('map-info-phase', UI.mapHoverLocation.ILLUMINATION_STATUS);
-
-		let nextRise, nextSet;
-
-		const unchanging = ['Polar Day', 'Polar Night', 'Permanent Day', 'Permanent Night'];
-		if (unchanging.includes(UI.mapHoverLocation.ILLUMINATION_STATUS)) {
-			nextRise = '---';
-			nextSet = '---';
-
-		} else {
-
-			if (UI.mapHoverLocation.IS_STAR_RISING_NOW) {
-				nextRise = '- NOW -';
-			} else {
-				nextRise = convertHoursToTimeString(UI.mapHoverLocation.NEXT_STAR_RISE * 24, true, false);
-			}
-
-			if (UI.mapHoverLocation.IS_STAR_SETTING_NOW) {
-				nextSet = '- NOW -';
-			} else {
-				nextSet = convertHoursToTimeString(UI.mapHoverLocation.NEXT_STAR_SET * 24, true, false);
-			}
-
-		}
-
-		UI.setText('map-info-nextstarrise', nextRise);
-		UI.setText('map-info-nextstarset', nextSet);
-	}
-
-	hideMapLocationData() {
-		UI.el('map-locationinfo-window').style.opacity = 0;
-		UI.mapHoverLocation = null;
-		clearInterval(UI.#updateMapLocationData);
-	}*/
-
-/**
-	// ===============
-	// ATLAS
-	// ===============
-
-	populateAtlasSidebar(system) {
-		const e = UI.el('atlas-treelist');
-		e.innerHTML = '';
-
-
-		// STARS
-		const stars = DB.stars.filter((s) => {
-			return s.PARENT_SYSTEM === system;
-		});
-
-		if (stars.length < 1) {
-			const level1 = document.createElement('li');
-			level1.innerText = 'System data unavailable';
-			e.appendChild(level1);
-			return;
-		}
-
-		for (const star of stars) {
-			const li1 = this.#createAtlasSidebarSelector(e, star);
-
-			// PLANETS
-			const planets = DB.bodies.filter((planet) => {
-				if (
-					planet.PARENT &&
-					planet.PARENT.NAME === star.NAME
-				) {
-					return true;
-				}
-			});
-
-			planets.sort((a, b) => {
-				return (a.ORDINAL < b.ORDINAL) ? -1 : (a.ORDINAL > b.ORDINAL) ? 1 : 0;
-			});
-
-
-			const ul2 = document.createElement('ul');
-			if (planets.length > 0) {
-				li1.appendChild(ul2);
-			}
-
-			for (const planet of planets) {
-				const li2 = this.#createAtlasSidebarSelector(ul2, planet);
-
-				// MOONS
-				const moons = DB.bodies.filter((moon) => {
-					if (
-						moon.PARENT &&
-						moon.PARENT.NAME === planet.NAME
-					) {
-						return true;
-					}
-				});
-
-				moons.sort((a, b) => {
-					return (a.ORDINAL < b.ORDINAL) ? -1 : (a.ORDINAL > b.ORDINAL) ? 1 : 0;
-				});
-
-				const ul3 = document.createElement('ul');
-				if (moons.length > 0) {
-					li2.appendChild(ul3);
-				}
-
-				for (const moon of moons) {
-					this.#createAtlasSidebarSelector(ul3, moon);
-				}
-			}
-		}
-	}
-
-	#createAtlasSidebarSelector(parentElement, object) {
-		const element = document.createElement('li');
-		parentElement.appendChild(element);
-		//element.innerText = object.NAME;
-
-		const selector = document.createElement('span');
-		selector.innerText = object.NAME;
-		//selector.classList.add('selector');
-		selector.classList.add('atlas-sidebar-object-selector');
-		element.appendChild(selector);
-
-		//element.classList.add('atlas-sidebar-object-selector');
-		element.addEventListener('click', (e) => {
-			e.stopPropagation();
-			let event = new CustomEvent('changeAtlasFocus', {
-				'detail': {
-					newObject: object
-				}
-			});
-			document.dispatchEvent(event);
-		});
-
-		return element;
-	}
-
-
-	updateAtlasHierarchy(focusBody, focusSystem) {
-		let textString = '';
-		if (focusBody instanceof SolarSystem || focusBody instanceof Star) {
-			textString = focusBody.NAME;
-
-		} else if (focusBody.TYPE === 'Planet' || focusBody.TYPE === 'Jump Point') {
-			textString = `${focusSystem.NAME} ▸ ${focusBody.NAME}`;
-
-		} else {
-			textString = `${focusSystem.NAME} ▸ ${focusBody.PARENT.NAME} ▸ ${focusBody.NAME}`;
-		}
-
-		UI.setText('atlas-hierarchy', textString);
-	}
-
-	showAtlasInfobox(object, event) {
-		this.#moveInfobox(event);
-		this.#populateInfobox(object);
-		atlasInfobox.style.opacity = '1';
-	}
-
-	#moveInfobox(event) {
-		console.warn('moveInfobox not implemented');
-	}
-
-	#populateInfobox(object) {
-		console.warn('populateInfobox not implemented');
-	}*/
 }
 
 const UI = new UserInterface();
