@@ -30,6 +30,7 @@ class UserInterface {
 		this.Settings = new Window('modal-settings', 'settings-window', null);
 		this.Debug = new Window('detailed-info', null, null);
 		this.Credits = new Window('modal-credits', null, null);
+		UI.Debug.toggle(); // default show
 	}
 
 	getButtons() {
