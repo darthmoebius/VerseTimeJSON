@@ -144,5 +144,5 @@ class Preferences_data {
 	}
 }
 
-const Settings_data = new Preferences_data_data();
+const Settings_data = new Preferences_data();
 export default Settings_data;
