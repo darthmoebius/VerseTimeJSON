@@ -493,7 +493,7 @@ class UserInterface {
 		UI.setText('db-next-starset-date', next);
 	}
 
-/**
+
 	// ===============
 	// MAIN INTERFACE
 	// ===============
@@ -534,7 +534,7 @@ class UserInterface {
 		}, 1000);
 
 		return true;
-	}*/
+	}
 
 	populateLocationList() {
 		let container = document.getElementById('available-locations-list');
