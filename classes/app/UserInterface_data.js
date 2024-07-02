@@ -9,8 +9,8 @@ import Star from '../Star.js';
 
 class UserInterface_data {
     constructor() {
-        if (UserInterface.instance) return UserInterface.instance;
-		UserInterface.instance = this;
+        if (UserInterface_data.instance) return UserInterface_data.instance;
+		UserInterface_data.instance = this;
 
 		//this.bgElement = document.getElementById('selected-location-bg-image');
 		//this.bgColor = this.bgElement.style.backgroundColor;
@@ -18,7 +18,7 @@ class UserInterface_data {
 		this.locationSelectedIndex = -1;
 		this.visibleButtons = [];
 
-		this.Settings_data = new Window('modal-Settings', 'Settings-window', null);
+		this.Settings_data = new Window('modal-settings', 'Settings-window', null);
 		//this.Debug = new Window('detailed-info', null, null);
 		//this.Credits = new Window('modal-credits', null, null);
 	}

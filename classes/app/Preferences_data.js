@@ -37,7 +37,7 @@ class Preferences_data {
 			Settings_data.useHdTextures = true;
 		}
 
-		// LOCAL MAP
+		/* LOCAL MAP
 		const mapPlanetTransparency = window.localStorage.getItem('mapPlanetTransparency');
 		const mapGrid = window.localStorage.getItem('mapGrid');
 		const mapTerminator = window.localStorage.getItem('mapTerminator');
@@ -88,8 +88,8 @@ class Preferences_data {
 		}
 
 		if (atlasGrid) {
-			UI_Data.el('atlas-Settings_data-show-grid').checked = (atlasGrid === 'false') ? false : true;
-		}
+			UI_Data.el('atlas-Settings-show-grid').checked = (atlasGrid === 'false') ? false : true;
+		}*/
 	}
 
 	#setDefaultLocation() {
