@@ -37,11 +37,11 @@ class UserInterface {
 
 	setupEventListeners() {
 		// CLICKS
-		//this.listen('click', 'BUTTON-open-settings', () => { UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
-		//this.listen('click', 'BUTTON-close-settings', () => { UI.Settings.toggle(); });
+		//this.listen('click', 'BUTTON-open-settings', () => { UI_Data.Settings.toggle(); UI_Data.el('location-selection-input').focus(); });
+		//this.listen('click', 'BUTTON-close-settings', () => { UI_Data.Settings.toggle(); });
 
-		//this.listen('click', 'BUTTON-toggle-credits-window', () => { UI.Credits.toggle(); });
-		//this.listen('click', 'BUTTON-close-credits', () => { UI.Credits.toggle(); });
+		//this.listen('click', 'BUTTON-toggle-credits-window', () => { UI_Data.Credits.toggle(); });
+		//this.listen('click', 'BUTTON-close-credits', () => { UI_Data.Credits.toggle(); });
 
 		//this.listen('click', 'BUTTON-share-location', this.shareLocation);
 
@@ -50,12 +50,12 @@ class UserInterface {
 		/*
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				if (UI.Settings.show) UI.Settings.toggle();
-				if (UI.Credits.show) UI.Credits.toggle();
+				if (UI_Data.Settings.show) UI_Data.Settings.toggle();
+				if (UI_Data.Credits.show) UI_Data.Credits.toggle();
 
 				return;
 			}
-			if (UI.Settings.show) {
+			if (UI_Data.Settings.show) {
 
 				// get visible buttons once
 				if (this.locationSelectedIndex === -1) {
@@ -68,29 +68,29 @@ class UserInterface {
 						event.preventDefault();
 						this.locationSelectedIndex = -1;
 						this.getSelectedButton()?.classList.remove('selected');
-						UI.el('location-selection-input').focus();
+						UI_Data.el('location-selection-input').focus();
 						return;
 					}
-					UI.el('location-selection-input').blur();
+					UI_Data.el('location-selection-input').blur();
 					this.getSelectedButton()?.classList.remove('selected');
 					this.locationSelectedIndex--;
 					this.buttons[this.locationSelectedIndex].classList.add('selected');
 
 					// scroll to button
-					UI.el('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
+					UI_Data.el('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
 					return;
 				}
 
 				if (event.key === 'ArrowDown' || event.key === 'Tab') {
 					if (event.key === 'Tab') { event.preventDefault(); }
 					if (this.locationSelectedIndex >= this.buttons.length - 1) { return; }
-					UI.el('location-selection-input').blur();
+					UI_Data.el('location-selection-input').blur();
 					this.getSelectedButton()?.classList.remove('selected');
 					this.locationSelectedIndex++;
 					this.buttons[this.locationSelectedIndex].classList.add('selected');
 
 					// scroll to button
-					UI.el('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
+					UI_Data.el('available-locations-list').scroll(0, this.buttons[this.locationSelectedIndex].offsetTop - 200);
 					return;
 				}
 			}
@@ -99,7 +99,7 @@ class UserInterface {
 		});*/
 
 
-		// SUPPRESS FIREFOX QUICKSEARCH
+		// SUPPRESS FIREFOX QUI_DataCKSEARCH
 		window.addEventListener('keydown', (event) => {
 			if (event.key === '/') {
 				event.preventDefault();
@@ -108,16 +108,16 @@ class UserInterface {
 
 		// KEYBOARD SEARCH
 		document.addEventListener('keyup', (event) => {
-			if (UI.Settings.show && event.key === 'Enter') {
+			if (UI_Data.Settings.show && event.key === 'Enter') {
 				let selected = this.getSelectedButton();
 				if(selected) {
-					UI.setMapLocation(selected.dataset.locationName);
+					UI_Data.setMapLocation(selected.dataset.locationName);
 					return;
 				}
 
 				let buttons = this.getVisibleButtons();
 				if(buttons && buttons.length > 0) {
-					UI.setMapLocation(buttons[0].dataset.locationName);
+					UI_Data.setMapLocation(buttons[0].dataset.locationName);
 				}
 				return;
 			}
@@ -125,10 +125,10 @@ class UserInterface {
 			if (event.target.tagName.toLowerCase() === 'input') return;
 
 			if (event.key === '/') {
-				if (!UI.Settings.show) UI.Settings.toggle();
+				if (!UI_Data.Settings.show) UI_Data.Settings.toggle();
 				this.locationSelectedIndex = -1;
 				this.getSelectedButton()?.classList.remove('selected');
-				UI.el('location-selection-input').focus();
+				UI_Data.el('location-selection-input').focus();
 				return;
 			}
 		})
@@ -136,14 +136,14 @@ class UserInterface {
 
 		// CUSTOM TIME SELECTION
 		this.listen('input', 'time-selection-input', () => {
-			const timeInput = UI.el('time-selection-input').value;
-			UI.setCustomTime(timeInput);
+			const timeInput = UI_Data.el('time-selection-input').value;
+			UI_Data.setCustomTime(timeInput);
 		})
 
 
 		// TYPING IN LOCATION SEARCH BOX
 		this.el('location-selection-input').addEventListener('input', (event) => {
-			const search = UI.el('location-selection-input').value.toLowerCase();
+			const search = UI_Data.el('location-selection-input').value.toLowerCase();
 			const searchFragments = search.split('+');
 			const buttons = this.getButtons();
 
@@ -169,16 +169,16 @@ class UserInterface {
 
 	// MAIN UPDATE FUNCTIONS
 	update() {
-		//UI.#update_setColors();
-		//UI.#update_setThemeImage();
-		UI.#update_setLocationInfo();
-		//UI.#update_setRiseAndSetData();
-		//UI.#update_setIlluminationStatus();
+		//UI_Data.#update_setColors();
+		//UI_Data.#update_setThemeImage();
+		UI_Data.#update_setLocationInfo();
+		//UI_Data.#update_setRiseAndSetData();
+		//UI_Data.#update_setIlluminationStatus();
 
-		if (UI.Settings.show) {
-			UI.updateSettingsLocationTimes();
+		if (UI_Data.Settings.show) {
+			UI_Data.updateSettingsLocationTimes();
 		}else{
-			UI.Settings.toggle(); // default show
+			UI_Data.Settings.toggle(); // default show
 		}
 	}
 
@@ -190,12 +190,12 @@ class UserInterface {
 		document.querySelector(':root').style.setProperty('--theme-color', colorMain);
 		document.querySelector(':root').style.setProperty('--theme-color-dark', colorDark);
 
-		if (UI.bgColor !== colorMain) UI.bgColor = colorMain;
+		if (UI_Data.bgColor !== colorMain) UI_Data.bgColor = colorMain;
 	}
 
 	#update_setThemeImage() {
 		const url = `url('${Settings.activeLocation.THEME_IMAGE}')`;
-		if (UI.bgElement.style.backgroundImage !== url) UI.bgElement.style.backgroundImage = url;
+		if (UI_Data.bgElement.style.backgroundImage !== url) UI_Data.bgElement.style.backgroundImage = url;
 	}*/
 
 	#update_setLocationInfo() {
@@ -204,71 +204,71 @@ class UserInterface {
 			Settings.activeLocation.ILLUMINATION_STATUS === 'Polar Night' ||
 			Settings.activeLocation.LOCAL_TIME.toString() === 'NaN'
 		) {
-			UI.setText('local-time', Settings.activeLocation.ILLUMINATION_STATUS);
+			UI_Data.setText('local-time', Settings.activeLocation.ILLUMINATION_STATUS);
 		} else {
-			UI.setText('local-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_TIME / 60 / 60, false));
+			UI_Data.setText('local-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_TIME / 60 / 60, false));
 		}
 		if (Settings.customTime !== 'now') {
-			UI.setText('chosen-time', getCustomTime().toLocaleString());
-			UI.setText('chosen-time-sublabel', 'local selected time');
+			UI_Data.setText('chosen-time', getCustomTime().toLocaleString());
+			UI_Data.setText('chosen-time-sublabel', 'local selected time');
 		} else {
-			UI.setText('chosen-time', '');
-			UI.setText('chosen-time-sublabel', '');
+			UI_Data.setText('chosen-time', '');
+			UI_Data.setText('chosen-time-sublabel', '');
 		}
-		UI.setText('location-name', Settings.activeLocation.NAME);
-		UI.setText('location-body-name', Settings.activeLocation.PARENT.NAME);
+		UI_Data.setText('location-name', Settings.activeLocation.NAME);
+		UI_Data.setText('location-body-name', Settings.activeLocation.PARENT.NAME);
 	}
 
 	/*#update_setRiseAndSetData() {
 		// COUNTDOWNS
 		let nextRise = Settings.activeLocation.NEXT_STAR_RISE;
 		if (!nextRise) {
-			UI.setText('next-rise-countdown', '---');
+			UI_Data.setText('next-rise-countdown', '---');
 
 		} else {
 			nextRise = Settings.activeLocation.IS_STAR_RISING_NOW ? '- NOW -' : convertHoursToTimeString(nextRise * 24, true, false);
-			UI.setText('next-rise-countdown', nextRise);
+			UI_Data.setText('next-rise-countdown', nextRise);
 		}
 
 		let nextSet = Settings.activeLocation.NEXT_STAR_SET;
 		if (!nextSet) {
-			UI.setText('next-set-countdown', '---');
+			UI_Data.setText('next-set-countdown', '---');
 
 		} else {
 			nextSet = Settings.activeLocation.IS_STAR_SETTING_NOW ? '- NOW -' : convertHoursToTimeString(nextSet * 24, true, false);
-			UI.setText('next-set-countdown', nextSet);
+			UI_Data.setText('next-set-countdown', nextSet);
 		}
 
 
 		// LOCAL TIMES
 		if (!nextRise) {
-			UI.setText('local-rise-time', '---');
+			UI_Data.setText('local-rise-time', '---');
 		} else {
-			UI.setText('local-rise-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_STAR_RISE_TIME * 24, false, true));
+			UI_Data.setText('local-rise-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_STAR_RISE_TIME * 24, false, true));
 		}
 
 		if (!nextSet) {
-			UI.setText('local-set-time', '---');
+			UI_Data.setText('local-set-time', '---');
 		} else {
-			UI.setText('local-set-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_STAR_SET_TIME * 24, false, true));
+			UI_Data.setText('local-set-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_STAR_SET_TIME * 24, false, true));
 		}
 
 
 		// REAL TIMES
 		let now = getCustomTime();
 		if (!nextRise) {
-			UI.setText('next-rise-time', '---');
+			UI_Data.setText('next-rise-time', '---');
 		} else {
 			const rise = now.setSeconds(now.getSeconds() + (Settings.activeLocation.NEXT_STAR_RISE * 86400));
-			UI.setText('next-rise-time', convertDateToShortTime(new Date(rise)));
+			UI_Data.setText('next-rise-time', convertDateToShortTime(new Date(rise)));
 		}
 
 		now = getCustomTime();
 		if (!nextSet) {
-			UI.setText('next-set-time', '---');
+			UI_Data.setText('next-set-time', '---');
 		} else {
 			const set = now.setSeconds(now.getSeconds() + (Settings.activeLocation.NEXT_STAR_SET * 86400));
-			UI.setText('next-set-time', convertDateToShortTime(new Date(set)));
+			UI_Data.setText('next-set-time', convertDateToShortTime(new Date(set)));
 		}
 	}*/
 
@@ -276,7 +276,7 @@ class UserInterface {
 		let scDate = getCustomTime();
 		scDate.setFullYear(scDate.getFullYear() + 930);
 		let scDateString = scDate.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' });
-		UI.setText('illumination-status', Settings.activeLocation.ILLUMINATION_STATUS + '\r\n' + scDateString);
+		UI_Data.setText('illumination-status', Settings.activeLocation.ILLUMINATION_STATUS + '\r\n' + scDateString);
 	}*/
 
 
@@ -329,7 +329,7 @@ class UserInterface {
 		const url = location.protocol + '//' + location.host + location.pathname + '#' + getHash();
 		navigator.clipboard.writeText(url);
 
-		const msg = UI.el('share-location-message');
+		const msg = UI_Data.el('share-location-message');
 		msg.style.transition = '0s ease-out';
 		msg.style.opacity = 1;
 
@@ -377,43 +377,43 @@ class UserInterface {
 			}
 
 			const timeElement = element.querySelector('.set-location-time');
-			UI.setText(timeElement, string);
+			UI_Data.setText(timeElement, string);
 		}
 	}
 
-	/*updateDebugUI() {
+	/*updateDebugUI_Data() {
 		let loc = Settings.activeLocation;
 		let bod = Settings.activeLocation ? Settings.activeLocation.PARENT : null;
 
-		UI.setText('db-hash', window.location.hash);
+		UI_Data.setText('db-hash', window.location.hash);
 
 		// CLOCKS
 		let unix = Math.floor(getCustomTime().valueOf() / 1000);
-		UI.setText('db-unix-time', unix.toLocaleString());
-		UI.setText('db-chosen-time', getCustomTime().toUTCString());
-		UI.setText('db-gmt-time', new Date().toUTCString());
-		UI.setText('db-universe-time', getUniverseTime(true).replace('GMT', 'SET'));
+		UI_Data.setText('db-unix-time', unix.toLocaleString());
+		UI_Data.setText('db-chosen-time', getCustomTime().toUTCString());
+		UI_Data.setText('db-gmt-time', new Date().toUTCString());
+		UI_Data.setText('db-universe-time', getUniverseTime(true).replace('GMT', 'SET'));
 
 		//CELESTIAL BODY
 		if (bod) {
-			UI.setText('body-name', bod.NAME);
-			UI.setText('body-type', bod.TYPE);
-			UI.setText('body-system', bod.PARENT_STAR.NAME);
-			UI.setText('body-parent-name', bod.PARENT.NAME);
-			UI.setText('body-radius', bod.BODY_RADIUS.toLocaleString());
-			UI.setText('day-length', (bod.ROTATION_RATE * 60 * 60).toLocaleString());
-			UI.setText('day-length-readable', convertHoursToTimeString(bod.ROTATION_RATE));
-			UI.setText('hour-length-readable', convertHoursToTimeString(bod.ROTATION_RATE / 24));
-			UI.setText('current-cycle', round(bod.CURRENT_CYCLE(), 3).toLocaleString());
-			UI.setText('hour-angle', bod.HOUR_ANGLE().toFixed(3));
-			UI.setText('declination', bod.DECLINATION(bod.PARENT_STAR).toFixed(3));
-			UI.setText('meridian', bod.STATIC_MERIDIAN().toFixed(3));
-			UI.setText('noon-longitude', bod.ROTATING_MERIDIAN().toFixed(3));
+			UI_Data.setText('body-name', bod.NAME);
+			UI_Data.setText('body-type', bod.TYPE);
+			UI_Data.setText('body-system', bod.PARENT_STAR.NAME);
+			UI_Data.setText('body-parent-name', bod.PARENT.NAME);
+			UI_Data.setText('body-radius', bod.BODY_RADIUS.toLocaleString());
+			UI_Data.setText('day-length', (bod.ROTATION_RATE * 60 * 60).toLocaleString());
+			UI_Data.setText('day-length-readable', convertHoursToTimeString(bod.ROTATION_RATE));
+			UI_Data.setText('hour-length-readable', convertHoursToTimeString(bod.ROTATION_RATE / 24));
+			UI_Data.setText('current-cycle', round(bod.CURRENT_CYCLE(), 3).toLocaleString());
+			UI_Data.setText('hour-angle', bod.HOUR_ANGLE().toFixed(3));
+			UI_Data.setText('declination', bod.DECLINATION(bod.PARENT_STAR).toFixed(3));
+			UI_Data.setText('meridian', bod.STATIC_MERIDIAN().toFixed(3));
+			UI_Data.setText('noon-longitude', bod.ROTATING_MERIDIAN().toFixed(3));
 		}
 
 		//LOCATION
-		UI.setText('db-local-name', loc.NAME);
-		UI.setText('db-local-time', convertHoursToTimeString(loc.LOCAL_TIME / 60 / 60));
+		UI_Data.setText('db-local-name', loc.NAME);
+		UI_Data.setText('db-local-time', convertHoursToTimeString(loc.LOCAL_TIME / 60 / 60));
 
 		let latitude = loc.LATITUDE.toFixed(3);
 		if (parseFloat(latitude) < 0) {
@@ -421,7 +421,7 @@ class UserInterface {
 		} else {
 			latitude = 'N ' + latitude;
 		}
-		UI.setText('latitude', latitude);
+		UI_Data.setText('latitude', latitude);
 
 		let longitude = loc.LONGITUDE.toFixed(3);
 		if (parseFloat(longitude) < 0) {
@@ -429,50 +429,50 @@ class UserInterface {
 		} else {
 			longitude = 'E ' + longitude;
 		}
-		UI.setText('longitude', longitude);
+		UI_Data.setText('longitude', longitude);
 
-		UI.setText('longitude-360', round(loc.LONGITUDE_360, 3));
-		UI.setText('elevation', round(loc.ELEVATION * 1000, 1).toLocaleString());
-		UI.setText('elevation-degrees', loc.ELEVATION_IN_DEGREES.toFixed(3));
-		UI.setText('sunriseset-angle', loc.STARRISE_AND_STARSET_ANGLE.toFixed(3));
-		UI.setText('length-of-daylight', convertHoursToTimeString(loc.LENGTH_OF_DAYLIGHT * 24, true, false));
-		UI.setText('length-of-night', convertHoursToTimeString((bod.ROTATION_RATE) - (loc.LENGTH_OF_DAYLIGHT * 24), true, false));
-		UI.setText('starrise-time', convertHoursToTimeString(loc.LOCAL_STAR_RISE_TIME * 24));
-		UI.setText('starset-time', convertHoursToTimeString(loc.LOCAL_STAR_SET_TIME * 24));
-		UI.setText('next-starrise-countdown', round(parseFloat(loc.NEXT_STAR_RISE), 6).toFixed(6));
-		UI.setText('next-starset-countdown', round(parseFloat(loc.NEXT_STAR_SET), 6).toFixed(6));
-		UI.setText('db-illumination-status', loc.ILLUMINATION_STATUS);
-		UI.setText('hour-angle-location', loc.HOUR_ANGLE().toFixed(3));
-		UI.setText('star-azimuth', loc.STAR_AZIMUTH().toFixed(3));
-		UI.setText('star-altitude', loc.STAR_ALTITUDE().toFixed(3));
-		UI.setText('max-star-altitude', loc.STAR_MAX_ALTITUDE().toFixed(3));
+		UI_Data.setText('longitude-360', round(loc.LONGITUDE_360, 3));
+		UI_Data.setText('elevation', round(loc.ELEVATION * 1000, 1).toLocaleString());
+		UI_Data.setText('elevation-degrees', loc.ELEVATION_IN_DEGREES.toFixed(3));
+		UI_Data.setText('sunriseset-angle', loc.STARRISE_AND_STARSET_ANGLE.toFixed(3));
+		UI_Data.setText('length-of-daylight', convertHoursToTimeString(loc.LENGTH_OF_DAYLIGHT * 24, true, false));
+		UI_Data.setText('length-of-night', convertHoursToTimeString((bod.ROTATION_RATE) - (loc.LENGTH_OF_DAYLIGHT * 24), true, false));
+		UI_Data.setText('starrise-time', convertHoursToTimeString(loc.LOCAL_STAR_RISE_TIME * 24));
+		UI_Data.setText('starset-time', convertHoursToTimeString(loc.LOCAL_STAR_SET_TIME * 24));
+		UI_Data.setText('next-starrise-countdown', round(parseFloat(loc.NEXT_STAR_RISE), 6).toFixed(6));
+		UI_Data.setText('next-starset-countdown', round(parseFloat(loc.NEXT_STAR_SET), 6).toFixed(6));
+		UI_Data.setText('db-illumination-status', loc.ILLUMINATION_STATUS);
+		UI_Data.setText('hour-angle-location', loc.HOUR_ANGLE().toFixed(3));
+		UI_Data.setText('star-azimuth', loc.STAR_AZIMUTH().toFixed(3));
+		UI_Data.setText('star-altitude', loc.STAR_ALTITUDE().toFixed(3));
+		UI_Data.setText('max-star-altitude', loc.STAR_MAX_ALTITUDE().toFixed(3));
 
 		let now = getCustomTime();
 		now.setMilliseconds(0);
 		let next = now.setSeconds(now.getSeconds() + (loc.NEXT_STAR_RISE * 24 * 60 * 60));
 		next = new Date(next).toLocaleString();
 		let remain = convertHoursToTimeString(loc.NEXT_STAR_RISE * 24, true, false);
-		UI.setText('db-next-starrise', (loc.NEXT_STAR_RISE * 24 * 60 * 60).toFixed(0));
-		UI.setText('db-next-starrise-countdown', remain);
-		UI.setText('db-next-starrise-date', next);
+		UI_Data.setText('db-next-starrise', (loc.NEXT_STAR_RISE * 24 * 60 * 60).toFixed(0));
+		UI_Data.setText('db-next-starrise-countdown', remain);
+		UI_Data.setText('db-next-starrise-date', next);
 
 		now = getCustomTime();
 		now.setMilliseconds(0);
 		next = now.setSeconds(now.getSeconds() + (loc.NEXT_NOON * 24 * 60 * 60));
 		next = new Date(next).toLocaleString();
 		remain = convertHoursToTimeString(loc.NEXT_NOON * 24, true, false);
-		UI.setText('next-noon', (loc.NEXT_NOON * 24 * 60 * 60).toFixed(0));
-		UI.setText('next-noon-countdown', remain);
-		UI.setText('next-noon-date', next);
+		UI_Data.setText('next-noon', (loc.NEXT_NOON * 24 * 60 * 60).toFixed(0));
+		UI_Data.setText('next-noon-countdown', remain);
+		UI_Data.setText('next-noon-date', next);
 
 		now = getCustomTime();
 		now.setMilliseconds(0);
 		next = now.setSeconds(now.getSeconds() + (loc.NEXT_STAR_SET * 24 * 60 * 60));
 		next = new Date(next).toLocaleString();
 		remain = convertHoursToTimeString(loc.NEXT_STAR_SET * 24, true, false);
-		UI.setText('db-next-starset', (loc.NEXT_STAR_SET * 24 * 60 * 60).toFixed(0));
-		UI.setText('db-next-starset-countdown', remain);
-		UI.setText('db-next-starset-date', next);
+		UI_Data.setText('db-next-starset', (loc.NEXT_STAR_SET * 24 * 60 * 60).toFixed(0));
+		UI_Data.setText('db-next-starset-countdown', remain);
+		UI_Data.setText('db-next-starset-date', next);
 	}*/
 
 
@@ -492,14 +492,14 @@ class UserInterface {
 
 		Settings.activeLocation = location;
 		Settings.save('activeLocation', Settings.activeLocation.NAME);
-		if (UI.Settings.show) {
-			UI.Settings.toggle();
-			UI.el('location-selection-input').value = '';
-			UI.el('location-selection-input').blur();
+		if (UI_Data.Settings.show) {
+			UI_Data.Settings.toggle();
+			UI_Data.el('location-selection-input').value = '';
+			UI_Data.el('location-selection-input').blur();
 			this.locationSelectedIndex = -1;
 			this.getSelectedButton()?.classList.remove('selected');
 			this.getButtons()?.forEach(el => el.classList.remove('hide'));
-			UI.el('available-locations-list').scroll(0, 0);
+			UI_Data.el('available-locations-list').scroll(0, 0);
 		}
 
 		window.suppressReload = true;
@@ -520,7 +520,7 @@ class UserInterface {
 
 			let el = document.createElement('div');
 			el.className = 'BUTTON-set-location';
-			el.addEventListener('click', function (e) { UI.setMapLocation(loc.NAME); });
+			el.addEventListener('click', function (e) { UI_Data.setMapLocation(loc.NAME); });
 			el.dataset.locationName = loc.NAME;
 
 			let elName = document.createElement('p');
@@ -543,5 +543,5 @@ class UserInterface {
 	}
 }
 
-const UI = new UserInterface();
-export default UI;
+const UI_Data = new UserInterface_data();
+export default UI_Data;

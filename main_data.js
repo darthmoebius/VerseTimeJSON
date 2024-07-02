@@ -1,12 +1,12 @@
 import Settings from './classes/app/Preferences.js';
 import DB from './classes/app/Database.js';
-import UI from './classes/app/UserInterface_data.js';
+import UI_data from './classes/app/UserInterface_data.js';
 
 window.suppressReload = false;
 
 function update() {
 	if (DB.locations.length === 0) return;
-	UI.update();
+	UI_data.update();
 }
 
 
@@ -14,11 +14,11 @@ function update() {
 async function startVerseTime() {
 	await DB.createDatabase();
 	DB.locations.sort((a, b) => a.NAME.localeCompare(b.NAME));
-	UI.populateLocationList();
+	UI_data.populateLocationList();
 	//UI.setupEventListeners();
 
 	//checkHash();
-	Settings.load();
+	Settings_data.load();
 
 	setInterval(update, 250);
 	update();

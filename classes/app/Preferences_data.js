@@ -17,24 +17,24 @@ class Preferences {
 		const savedActiveLocation = String(window.localStorage.getItem('activeLocation'));
 		if (window.location.hash === '' && savedActiveLocation !== 'null') {
 			const result = UI.setMapLocation(savedActiveLocation);
-			if (!result) Settings.#setDefaultLocation();
+			if (!result) Settings_data.#setDefaultLocation();
 
 		} else if (window.location.hash === '') {
-			Settings.#setDefaultLocation();
+			Settings_data.#setDefaultLocation();
 		}
 
 		const time24 = window.localStorage.getItem('time24');
 		if (time24) {
-			Settings.use24HourTime = (time24 === 'false') ? false : true;
+			Settings_data.use24HourTime = (time24 === 'false') ? false : true;
 		} else {
-			Settings.use24HourTime = true;
+			Settings_data.use24HourTime = true;
 		}
 
 		const hdTextures = window.localStorage.getItem('hdTextures');
 		if (hdTextures) {
-			Settings.useHdTextures = (hdTextures === 'false') ? false : true;
+			Settings_data.useHdTextures = (hdTextures === 'false') ? false : true;
 		} else {
-			Settings.useHdTextures = true;
+			Settings_data.useHdTextures = true;
 		}
 
 		// LOCAL MAP
@@ -46,27 +46,27 @@ class Preferences {
 		const mapStars = window.localStorage.getItem('mapStars');
 
 		if (mapPlanetTransparency) {
-			UI.el('map-settings-planet-transparency').value = parseInt(mapPlanetTransparency);
+			UI.el('map-Settings_data-planet-transparency').value = parseInt(mapPlanetTransparency);
 		}
 
 		if (mapGrid) {
-			UI.el('map-settings-show-grid').checked = (mapGrid === 'false') ? false : true;
+			UI.el('map-Settings_data-show-grid').checked = (mapGrid === 'false') ? false : true;
 		}
 
 		if (mapTerminator) {
-			UI.el('map-settings-show-terminator').checked = (mapTerminator === 'false') ? false : true;
+			UI.el('map-Settings_data-show-terminator').checked = (mapTerminator === 'false') ? false : true;
 		}
 
 		if (mapOMs) {
-			UI.el('map-settings-show-orbitalmarkers').checked = (mapOMs === 'false') ? false : true;
+			UI.el('map-Settings_data-show-orbitalmarkers').checked = (mapOMs === 'false') ? false : true;
 		}
 
 		if (mapTimes) {
-			UI.el('map-settings-show-times').checked = (mapTimes === 'false') ? false : true;
+			UI.el('map-Settings_data-show-times').checked = (mapTimes === 'false') ? false : true;
 		}
 
 		if (mapStars) {
-			UI.el('map-settings-show-starfield').checked = (mapStars === 'false') ? false : true;
+			UI.el('map-Settings_data-show-starfield').checked = (mapStars === 'false') ? false : true;
 		}
 
 		// ATLAS
@@ -76,19 +76,19 @@ class Preferences {
 		const atlasGrid = window.localStorage.getItem('atlasGrid');
 
 		if (atlasLolli) {
-			UI.el('atlas-settings-show-lollipops').checked = (atlasLolli === 'false') ? false : true;
+			UI.el('atlas-Settings_data-show-lollipops').checked = (atlasLolli === 'false') ? false : true;
 		}
 
 		if (atlasWorm) {
-			UI.el('atlas-settings-show-wormholes').checked = (atlasWorm === 'false') ? false : true;
+			UI.el('atlas-Settings_data-show-wormholes').checked = (atlasWorm === 'false') ? false : true;
 		}
 
 		if (atlasAffil) {
-			UI.el('atlas-settings-show-affiliation').checked = (atlasAffil === 'false') ? false : true;
+			UI.el('atlas-Settings_data-show-affiliation').checked = (atlasAffil === 'false') ? false : true;
 		}
 
 		if (atlasGrid) {
-			UI.el('atlas-settings-show-grid').checked = (atlasGrid === 'false') ? false : true;
+			UI.el('atlas-Settings_data-show-grid').checked = (atlasGrid === 'false') ? false : true;
 		}
 	}
 
@@ -96,8 +96,8 @@ class Preferences {
 		let result = DB.locations.filter(location => {
 			return location.NAME === 'Orison';
 		});
-		Settings.activeLocation = result[0];
-		Settings.save('activeLocation', result[0].NAME);
+		Settings_data.activeLocation = result[0];
+		Settings_data.save('activeLocation', result[0].NAME);
 	}
 
 	save(key, value) {
@@ -110,7 +110,7 @@ class Preferences {
 			return null;
 		}
 
-		const directory = Settings.useHdTextures ? 'bodies-hd' : 'bodies';
+		const directory = Settings_data.useHdTextures ? 'bodies-hd' : 'bodies';
 		return `textures/${directory}/${body.NAME.toLowerCase()}.webp`;
 	}
 
@@ -144,5 +144,5 @@ class Preferences {
 	}
 }
 
-const Settings = new Preferences();
-export default Settings;
+const Settings_data = new Preferences_data();
+export default Settings_data;
