@@ -115,8 +115,7 @@ class UserInterface {
 			if (event.target.tagName.toLowerCase() === 'input') return;
 
 
-			if (event.key === 'a') { UI.Atlas.toggle(); }
-			if (event.key === 'm') { UI.Map.toggle(); }
+
 
 			if (event.key === 'd') {
 				UI.Debug.toggle();
@@ -124,25 +123,6 @@ class UserInterface {
 				if (UI.Debug.show) {
 					DB.getLocationsWithoutImage();
 					DB.getLocationsWithoutWikiLink();
-				}
-			}
-
-
-			if (event.key === 't') {
-				Settings.use24HourTime = !Settings.use24HourTime;
-				Settings.save('time24', Settings.use24HourTime);
-			}
-
-			if (event.key === 'h') {
-				Settings.useHdTextures = !Settings.useHdTextures;
-				Settings.save('hdTextures', Settings.useHdTextures);
-
-				if (this.Map.show) {
-					document.dispatchEvent(new CustomEvent('redrawMapTexture'));
-				}
-
-				if (this.Atlas.show) {
-					console.warn('TODO: refresh atlas textures');
 				}
 			}
 		});
