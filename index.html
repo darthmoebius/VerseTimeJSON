@@ -15,7 +15,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
+	
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/location.css">
 	<link rel="stylesheet" type="text/css" href="css/map.css">
@@ -24,7 +24,6 @@
 </head>
 
 <body>
-
 	<section id="selected-location-card">
 
 		<div id="selected-location-container">
@@ -34,52 +33,209 @@
 			<p class="selected-location-time" id="local-time"></p>
 
 			<div id="BUTTON-open-settings">
-				<p class="selected-location-label"><span id="location-name"></span>, <span id="location-body-type"></span> <span id="location-body-name"></span></p>
-				<p class="selected-location-sublabel">local synodic time</p>
+				<p class="selected-location-label"><span id="location-name"></span><!--<br>--></p>
+				<p class="location-info">(<span id="location-body-type"></span><span id="location-body-name"></span>)</p>
+				<!--<p class="selected-location-sublabel">local synodic time</p>-->
 			</div>
 
 			<div>
 				<p id="chosen-time"></p>
+				<div id="illumination-status"></div>
 				<p class="selected-location-sublabel" id="chosen-time-sublabel"></p>
 			</div>
-
-			<div class="riseset-container" id="next-rise-container">
-				<div class="riseset-group">
-					<p class="riseset-label">Next starrise</p>
-					<p class="riseset-time-label" id="next-rise-countdown"></p>
+			<div class="riseset-container-parent">
+				<div class="riseset-container" id="next-rise-container">
+					<div class="riseset-group">
+						<p class="riseset-label">Next starrise</p>
+						<p class="riseset-time-label" id="next-rise-countdown"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Verse time</p>
+						<p class="riseset-time-label" id="local-rise-time"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Real Time</p>
+						<p class="riseset-time-label"><span id="next-rise-time"></span></p>
+					</div>
 				</div>
-				<div class="riseset-group">
-					<p class="riseset-label">Verse time</p>
-					<p class="riseset-time-label" id="local-rise-time"></p>
-				</div>
-				<div class="riseset-group">
-					<p class="riseset-label">Real Time</p>
-					<p class="riseset-time-label"><span id="next-rise-time"></span></p>
-				</div>
-			</div>
-
-			<div class="riseset-container" id="next-set-container">
-				<div class="riseset-group">
-					<p class="riseset-label">Next starset</p>
-					<p class="riseset-time-label" id="next-set-countdown"></p>
-				</div>
-				<div class="riseset-group">
-					<p class="riseset-label">Verse time</p>
-					<p class="riseset-time-label" id="local-set-time"></p>
-				</div>
-				<div class="riseset-group">
-					<p class="riseset-label">Real Time</p>
-					<p class="riseset-time-label"><span id="next-set-time"></span></p>
+	
+				<div class="riseset-container" id="next-set-container">
+					<div class="riseset-group">
+						<p class="riseset-label">Next starset</p>
+						<p class="riseset-time-label" id="next-set-countdown"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Verse time</p>
+						<p class="riseset-time-label" id="local-set-time"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Real Time</p>
+						<p class="riseset-time-label"><span id="next-set-time"></span></p>
+					</div>
 				</div>
 			</div>
 
 		</div>
 	</section>
+	<section id="selected-location-card2">
 
-	<div id="illumination-status"></div>
+		<div id="selected-location-container">
 
+			<div id="selected-location-bg-image"></div>
 
+			<p class="selected-location-time" id="local-time"></p>
 
+			<div id="BUTTON-open-settings">
+				<p class="selected-location-label"><span id="location-name"></span><!--<br>--></p>
+				<p class="location-info">(<span id="location-body-type"></span><span id="location-body-name"></span>)</p>
+				<!--<p class="selected-location-sublabel">local synodic time</p>-->
+			</div>
+
+			<div>
+				<p id="chosen-time"></p>
+				<div id="illumination-status"></div>
+				<p class="selected-location-sublabel" id="chosen-time-sublabel"></p>
+			</div>
+			<div class="riseset-container-parent">
+				<div class="riseset-container" id="next-rise-container">
+					<div class="riseset-group">
+						<p class="riseset-label">Next starrise</p>
+						<p class="riseset-time-label" id="next-rise-countdown"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Verse time</p>
+						<p class="riseset-time-label" id="local-rise-time"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Real Time</p>
+						<p class="riseset-time-label"><span id="next-rise-time"></span></p>
+					</div>
+				</div>
+	
+				<div class="riseset-container" id="next-set-container">
+					<div class="riseset-group">
+						<p class="riseset-label">Next starset</p>
+						<p class="riseset-time-label" id="next-set-countdown"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Verse time</p>
+						<p class="riseset-time-label" id="local-set-time"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Real Time</p>
+						<p class="riseset-time-label"><span id="next-set-time"></span></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+	<section id="selected-location-card3">
+
+		<div id="selected-location-container">
+
+			<div id="selected-location-bg-image"></div>
+
+			<p class="selected-location-time" id="local-time"></p>
+
+			<div id="BUTTON-open-settings">
+				<p class="selected-location-label"><span id="location-name"></span><!--<br>--></p>
+				<p class="location-info">(<span id="location-body-type"></span><span id="location-body-name"></span>)</p>
+				<!--<p class="selected-location-sublabel">local synodic time</p>-->
+			</div>
+
+			<div>
+				<p id="chosen-time"></p>
+				<div id="illumination-status"></div>
+				<p class="selected-location-sublabel" id="chosen-time-sublabel"></p>
+			</div>
+			<div class="riseset-container-parent">
+				<div class="riseset-container" id="next-rise-container">
+					<div class="riseset-group">
+						<p class="riseset-label">Next starrise</p>
+						<p class="riseset-time-label" id="next-rise-countdown"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Verse time</p>
+						<p class="riseset-time-label" id="local-rise-time"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Real Time</p>
+						<p class="riseset-time-label"><span id="next-rise-time"></span></p>
+					</div>
+				</div>
+	
+				<div class="riseset-container" id="next-set-container">
+					<div class="riseset-group">
+						<p class="riseset-label">Next starset</p>
+						<p class="riseset-time-label" id="next-set-countdown"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Verse time</p>
+						<p class="riseset-time-label" id="local-set-time"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Real Time</p>
+						<p class="riseset-time-label"><span id="next-set-time"></span></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+	<section id="selected-location-card4">
+
+		<div id="selected-location-container">
+
+			<div id="selected-location-bg-image"></div>
+
+			<p class="selected-location-time" id="local-time"></p>
+
+			<div id="BUTTON-open-settings">
+				<p class="selected-location-label"><span id="location-name"></span><!--<br>--></p>
+				<p class="location-info">(<span id="location-body-type"></span><span id="location-body-name"></span>)</p>
+				<!--<p class="selected-location-sublabel">local synodic time</p>-->
+			</div>
+
+			<div>
+				<p id="chosen-time"></p>
+				<div id="illumination-status"></div>
+				<p class="selected-location-sublabel" id="chosen-time-sublabel"></p>
+			</div>
+			<div class="riseset-container-parent">
+				<div class="riseset-container" id="next-rise-container">
+					<div class="riseset-group">
+						<p class="riseset-label">Next starrise</p>
+						<p class="riseset-time-label" id="next-rise-countdown"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Verse time</p>
+						<p class="riseset-time-label" id="local-rise-time"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Real Time</p>
+						<p class="riseset-time-label"><span id="next-rise-time"></span></p>
+					</div>
+				</div>
+	
+				<div class="riseset-container" id="next-set-container">
+					<div class="riseset-group">
+						<p class="riseset-label">Next starset</p>
+						<p class="riseset-time-label" id="next-set-countdown"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Verse time</p>
+						<p class="riseset-time-label" id="local-set-time"></p>
+					</div>
+					<div class="riseset-group">
+						<p class="riseset-label">Real Time</p>
+						<p class="riseset-time-label"><span id="next-set-time"></span></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
 
 	<button id="BUTTON-toggle-credits-window" class="button">
 		<img src="img/ui/question.png" />
@@ -98,9 +254,6 @@
 	<div id="share-location-message">
 		URL copied to clipboard
 	</div>
-
-
-
 	<section class="modal" id="modal-settings">
 		<div id="settings-window">
 			<button id="BUTTON-close-settings"></button>
@@ -120,8 +273,6 @@
 			</div>
 		</div>
 	</section>
-
-
 
 	<section class="modal" id="modal-credits">
 		<div id="credits-window">
