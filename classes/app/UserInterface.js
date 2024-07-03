@@ -19,7 +19,7 @@ class UserInterface {
 		this.visibleButtons = [];
 
 		this.Settings = new Window('modal-settings', 'settings-window', null);
-		this.Debug = new Window('detailed-info', null, null);
+		//this.Debug = new Window('detailed-info', null, null);
 		this.Credits = new Window('modal-credits', null, null);
 	}
 
@@ -176,11 +176,11 @@ class UserInterface {
 		UI.#update_setIlluminationStatus();
 
 		if (UI.Settings.show) UI.updateSettingsLocationTimes();
-		if (UI.Debug.show) {
+		/*if (UI.Debug.show) {
 			UI.updateDebugUI();
 		}else{
 			UI.Debug.toggle(); // default show
-		}
+		}*/
 	}
 
 	#update_setColors() {
@@ -395,7 +395,7 @@ class UserInterface {
 		}
 	}
 
-	updateDebugUI() {
+	/*updateDebugUI() {
 		let loc = Settings.activeLocation;
 		let bod = Settings.activeLocation ? Settings.activeLocation.PARENT : null;
 
@@ -487,7 +487,7 @@ class UserInterface {
 		UI.setText('db-next-starset', (loc.NEXT_STAR_SET * 24 * 60 * 60).toFixed(0));
 		UI.setText('db-next-starset-countdown', remain);
 		UI.setText('db-next-starset-date', next);
-	}
+	}*/
 
 
 	// ===============
