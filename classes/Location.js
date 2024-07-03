@@ -1,5 +1,4 @@
 import { degrees, radians, modulo, square } from '../HelperFunctions.js';
-//import * as THREE from 'three';
 import DB from './app/Database.js';
 
 export default class Location {
@@ -22,7 +21,6 @@ export default class Location {
 		this.#calculateLongitude360();
 		this.#calculateElevation();
 		this.#calculateRiseSetAngle();
-		//this.#calculate3dMapCoordinates();
 
 		// FINALIZATION
 		DB.locations.push(this);
@@ -86,28 +84,6 @@ export default class Location {
 		const p1 = Math.acos(p2);
 		this.STARRISE_AND_STARSET_ANGLE = degrees(p1) + this.PARENT.APPARENT_RADIUS(this.PARENT_STAR) + this.ELEVATION_IN_DEGREES;
 	}
-
-	/*#calculate3dMapCoordinates() {
-		// NORMALIZED COORDINATES FOR 3D MAP
-		let x = -this.COORDINATES.x / this.PARENT.BODY_RADIUS; // -x adjusts for rotation direction in local 3D map
-		let y = this.COORDINATES.y / this.PARENT.BODY_RADIUS;
-		let z = this.COORDINATES.z / this.PARENT.BODY_RADIUS;
-		const vec = new THREE.Vector3(x, y, z);
-
-		// IF ELEVATION IS NEGATIVE: PUSH COORDINATE TO SURFACE
-		if (vec.length() < 1) {
-			vec.normalize();
-			x = vec.x;
-			y = vec.y;
-			z = vec.z;
-		}
-
-		this.COORDINATES_3DMAP = {
-			'x': x,
-			'y': y,
-			'z': z
-		}
-	}*/
 
 	HOUR_ANGLE() {
 		const subResult = modulo(this.LONGITUDE_360 - this.PARENT.STATIC_MERIDIAN(), 360);
