@@ -342,8 +342,7 @@ class UserInterface {
 	}
 
 	// DATA LINK
-	shareLocation() {
-		
+	getData() {
 		UI.setText('share-location-message', "Not available yet");
 		const msg = UI.el('share-location-message');
 		msg.style.transition = '0s ease-out';
