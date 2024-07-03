@@ -44,6 +44,7 @@ class UserInterface {
 		this.listen('click', 'BUTTON-close-credits', () => { UI.Credits.toggle(); });
 
 		this.listen('click', 'BUTTON-share-location', this.shareLocation);
+		this.listen('click', 'BUTTON-get-data', this.getData);
 
 
 		// KEYBOARD TOGGLES
@@ -328,11 +329,25 @@ class UserInterface {
 	shareLocation() {
 		const url = location.protocol + '//' + location.host + location.pathname + '#' + getHash();
 		navigator.clipboard.writeText(url);
+		UI.setText('share-location-message', "URL copied to clipboard");
 
 		const msg = UI.el('share-location-message');
 		msg.style.transition = '0s ease-out';
 		msg.style.opacity = 1;
 
+		setTimeout(() => {
+			msg.style.transition = '1s ease-out';
+			msg.style.opacity = 0;
+		}, 2000)
+	}
+
+	// DATA LINK
+	shareLocation() {
+		
+		UI.setText('share-location-message', "Not available yet");
+		const msg = UI.el('share-location-message');
+		msg.style.transition = '0s ease-out';
+		msg.style.opacity = 1;
 		setTimeout(() => {
 			msg.style.transition = '1s ease-out';
 			msg.style.opacity = 0;
