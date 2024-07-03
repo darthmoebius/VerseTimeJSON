@@ -101,10 +101,21 @@ kbd {
 	text-align: center;
 }
 
-#BUTTON-share-location {
+#TOP-links {
 	position: absolute;
 	top: 5px;
 	left: 50%;
+	transform: translateX(-50%);
+}
+
+#BUTTON-share-location {
+	position: relative;
+	/*left: 50%;*/
+	transform: translateX(-50%);
+}
+#BUTTON-share-location {
+	position: relative;
+	/*left: 50%;*/
 	transform: translateX(-50%);
 }
 
