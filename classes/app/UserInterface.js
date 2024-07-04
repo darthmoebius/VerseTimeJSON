@@ -49,10 +49,10 @@ class UserInterface {
 
 	setupEventListeners() {
 		// CLICKS
-		this.listen('click', 'BUTTON-open-settings1', () => {this.selectedElement = 0; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
-		this.listen('click', 'BUTTON-open-settings2', () => {this.selectedElement = 1; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
-		this.listen('click', 'BUTTON-open-settings3', () => {this.selectedElement = 2; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
-		this.listen('click', 'BUTTON-open-settings4', () => {this.selectedElement = 3; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
+		this.listen('click', 'BUTTON-open-settings0', () => {this.selectedElement = 0; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
+		this.listen('click', 'BUTTON-open-settings1', () => {this.selectedElement = 1; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
+		this.listen('click', 'BUTTON-open-settings2', () => {this.selectedElement = 2; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
+		this.listen('click', 'BUTTON-open-settings3', () => {this.selectedElement = 3; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
 		this.listen('click', 'BUTTON-close-settings', () => { UI.Settings.toggle(); });
 
 		this.listen('click', 'BUTTON-toggle-credits-window', () => { UI.Credits.toggle(); });
