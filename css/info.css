@@ -12,20 +12,20 @@
     overflow: hidden;
     padding: 30px 30px 10px;
     text-align: center;
-    background-color: var(--theme-color-dark);
+    background-color: var(--window-color-dark);
     border-radius: 20px;
     box-shadow: 0px 0px 90px hsla(0, 0%, 0%, 0.8);
 }
 
     #credits-window a {
-        color: var(--theme-color);
+        color: hsl(200, 50%, 40%);
         text-decoration: none;
         transition: 0.2s ease-out;
-        border-bottom: 1px dashed var(--theme-color);
+        border-bottom: 1px dashed var(--window-color);
     }
 
         #credits-window a:hover {
-            color: white;
+            color: hsl(200, 50%, 60%);
             border: none;
         }
 
@@ -69,10 +69,10 @@
 }
 
 #referral-code {
-    color: var(--theme-color);
+    color: #888;/*var(--window-color);*/
     text-decoration: none;
     transition: 0.2s ease-out;
-    border-bottom: 1px dashed var(--theme-color);
+    border-bottom: 1px dashed var(--window-color);
 }
 
 #referral-code:hover {

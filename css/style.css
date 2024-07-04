@@ -1,6 +1,8 @@
 :root {
-	--theme-color: hsl(200, 50%, 20%);
-	--theme-color-dark: hsl(200, 50%, 10%);
+	--theme-color: #fff;/*hsl(200, 50%, 20%);*/
+	--theme-color-dark: #ddd;/*hsl(200, 50%, 10%);*/
+	--window-color: hsl(200, 50%, 20%);
+	--window-color-dark: hsl(200, 50%, 10%);
 }
 
 * {
@@ -10,7 +12,7 @@
 }
 body {
 	font-family: 'Roboto Mono', monospace;
-	background-color: var(--theme-color);
+	background-color: #000;/*var(--theme-color);*/
 	color: white;
 	overflow: hidden;
 }

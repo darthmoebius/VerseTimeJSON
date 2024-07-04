@@ -29,14 +29,16 @@ function checkHash() {
 	const hash = window.location.hash;
 	if (hash === '') return;
 
-	const hashParts = hash.replace('#', '').replaceAll('_', ' ').split('@');
-	const locationName = hashParts[0];
+	const hashParts = hash.replace('#', '').replaceAll('_', ' ').split('/');
+	//const locationName = ;
 
-	if (hashParts[1] !== undefined) {
-		UI.setCustomTime(hashParts[1], true);
+	if (hash.split('@')[1] !== undefined) {
+		UI.setCustomTime(hash.split('@')[1], true);
 	}
-
-	UI.setMapLocation(locationName);
+	UI.setMapLocation(hashParts[0],0);
+	UI.setMapLocation(hashParts[1],1);
+	UI.setMapLocation(hashParts[2],2);
+	UI.setMapLocation(hashParts[3],3);
 }
 
 window.addEventListener('hashchange', () => {

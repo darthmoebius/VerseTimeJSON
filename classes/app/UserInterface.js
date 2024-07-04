@@ -13,15 +13,19 @@ class UserInterface {
 		UserInterface.instance = this;
 		this.selectedElement = 0;
 		this.bgElement = new Array(4);
-		this.bgElement[0] = document.getElementById('selected-location-bg-image1');
-		this.bgElement[1] = document.getElementById('selected-location-bg-image2');
-		this.bgElement[2] = document.getElementById('selected-location-bg-image3');
-		this.bgElement[3] = document.getElementById('selected-location-bg-image4');
 		this.bgColor = new Array(4);
+		for(let i = 0;i<4;i++){
+			this.bgElement[i] = document.getElementById('selected-location-bg-image'+i);
+			this.bgColor[i] = this.bgElement[i].style.backgroundColor;
+		}
+		/*this.bgElement[0] = document.getElementById('selected-location-bg-image0');
+		this.bgElement[1] = document.getElementById('selected-location-bg-image1');
+		this.bgElement[2] = document.getElementById('selected-location-bg-image2');
+		this.bgElement[3] = document.getElementById('selected-location-bg-image3');
 		this.bgColor[0] = this.bgElement[0].style.backgroundColor;
 		this.bgColor[1] = this.bgElement[1].style.backgroundColor;
 		this.bgColor[2] = this.bgElement[2].style.backgroundColor;
-		this.bgColor[3] = this.bgElement[3].style.backgroundColor;
+		this.bgColor[3] = this.bgElement[3].style.backgroundColor;*/
 
 		this.locationSelectedIndex = -1;
 		this.visibleButtons = [];
@@ -52,6 +56,7 @@ class UserInterface {
 		this.listen('click', 'BUTTON-close-settings', () => { UI.Settings.toggle(); });
 
 		this.listen('click', 'BUTTON-toggle-credits-window', () => { UI.Credits.toggle(); });
+		this.listen('click', 'BUTTON-reset-locations', this.resetLocations);
 		this.listen('click', 'BUTTON-close-credits', () => { UI.Credits.toggle(); });
 
 		this.listen('click', 'BUTTON-share-location', this.shareLocation);
@@ -180,17 +185,30 @@ class UserInterface {
 
 	// MAIN UPDATE FUNCTIONS
 	update() {
-		UI.#update_setColors(0);
-		UI.#update_setColors(1);
-		UI.#update_setColors(2);
-		UI.#update_setColors(3);
+		
+		//UI.#update_setColors(0);
 		UI.#update_setThemeImage(0);
+		UI.#update_setLocationInfo(0);
+		UI.#update_setRiseAndSetData(0);
+		UI.#update_setIlluminationStatus(0);
+		
+		//UI.#update_setColors(1);
 		UI.#update_setThemeImage(1);
+		UI.#update_setLocationInfo(1);
+		UI.#update_setRiseAndSetData(1);
+		UI.#update_setIlluminationStatus(1);
+		
+		//UI.#update_setColors(2);
 		UI.#update_setThemeImage(2);
+		UI.#update_setLocationInfo(2);
+		UI.#update_setRiseAndSetData(2);
+		UI.#update_setIlluminationStatus(2);
+		
+		//UI.#update_setColors(3);
 		UI.#update_setThemeImage(3);
-		UI.#update_setLocationInfo();
-		UI.#update_setRiseAndSetData();
-		UI.#update_setIlluminationStatus();
+		UI.#update_setLocationInfo(3);
+		UI.#update_setRiseAndSetData(3);
+		UI.#update_setIlluminationStatus(3);
 
 		if (UI.Settings.show) UI.updateSettingsLocationTimes();
 		/*if (UI.Debug.show) {
@@ -200,8 +218,8 @@ class UserInterface {
 		}*/
 	}
 
-	#update_setColors(index) {
-		const col = Settings.activeLocation.THEME_COLOR;
+	/*#update_setColors(index) {
+		const col = Settings.activeLocation[index].THEME_COLOR;
 		const colorMain = `rgb(${col.r}, ${col.g}, ${col.b})`;
 		const colorDark = `rgb(${col.r * 0.2}, ${col.g * 0.2}, ${col.b * 0.2})`;
 
@@ -209,92 +227,92 @@ class UserInterface {
 		document.querySelector(':root').style.setProperty('--theme-color-dark', colorDark);
 
 		if (UI.bgColor[index] !== colorMain) UI.bgColor[index] = colorMain;
-	}
+	}*/
 
 	#update_setThemeImage(index) {
-		const url = `url('${Settings.activeLocation.THEME_IMAGE}')`;
+		const url = `url('${Settings.activeLocation[index].THEME_IMAGE}')`;
 		if (UI.bgElement[index].style.backgroundImage !== url) UI.bgElement[index].style.backgroundImage = url;
 	}
 
-	#update_setLocationInfo() {
+	#update_setLocationInfo(index) {
 		if (
-			Settings.activeLocation.ILLUMINATION_STATUS === 'Polar Day' ||
-			Settings.activeLocation.ILLUMINATION_STATUS === 'Polar Night' ||
-			Settings.activeLocation.LOCAL_TIME.toString() === 'NaN'
+			Settings.activeLocation[index].ILLUMINATION_STATUS === 'Polar Day' ||
+			Settings.activeLocation[index].ILLUMINATION_STATUS === 'Polar Night' ||
+			Settings.activeLocation[index].LOCAL_TIME.toString() === 'NaN'
 		) {
-			UI.setText('local-time', Settings.activeLocation.ILLUMINATION_STATUS);
+			UI.setText('local-time'+index, Settings.activeLocation[index].ILLUMINATION_STATUS);
 		} else {
-			UI.setText('local-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_TIME / 60 / 60, false));
+			UI.setText('local-time'+index, convertHoursToTimeString(Settings.activeLocation[index].LOCAL_TIME / 60 / 60, false));
 		}
-		if (Settings.customTime !== 'now') {
+		/*if (Settings.customTime !== 'now') {
 			UI.setText('chosen-time', getCustomTime().toLocaleString());
 			UI.setText('chosen-time-sublabel', 'local selected time');
 		} else {
 			UI.setText('chosen-time', '');
 			UI.setText('chosen-time-sublabel', '');
-		}
-		UI.setText('location-name', (Settings.activeLocation.NAME).split("(")[0]);
-		UI.setText('location-body-name', Settings.activeLocation.PARENT.NAME);
+		}*/
+		UI.setText('location-name'+index, (Settings.activeLocation[index].NAME).split("(")[0]);
+		UI.setText('location-body-name'+index, Settings.activeLocation[index].PARENT.NAME);
 	}
 
-	#update_setRiseAndSetData() {
+	#update_setRiseAndSetData(index) {
 		// COUNTDOWNS
-		let nextRise = Settings.activeLocation.NEXT_STAR_RISE;
+		let nextRise = Settings.activeLocation[index].NEXT_STAR_RISE;
 		if (!nextRise) {
-			UI.setText('next-rise-countdown', '---');
+			UI.setText('next-rise-countdown'+index, '---');
 
 		} else {
-			nextRise = Settings.activeLocation.IS_STAR_RISING_NOW ? '- NOW -' : convertHoursToTimeString(nextRise * 24, true, false);
-			UI.setText('next-rise-countdown', nextRise);
+			nextRise = Settings.activeLocation[index].IS_STAR_RISING_NOW ? '- NOW -' : convertHoursToTimeString(nextRise * 24, true, false);
+			UI.setText('next-rise-countdown'+index, nextRise);
 		}
 
-		let nextSet = Settings.activeLocation.NEXT_STAR_SET;
+		let nextSet = Settings.activeLocation[index].NEXT_STAR_SET;
 		if (!nextSet) {
-			UI.setText('next-set-countdown', '---');
+			UI.setText('next-set-countdown'+index, '---');
 
 		} else {
-			nextSet = Settings.activeLocation.IS_STAR_SETTING_NOW ? '- NOW -' : convertHoursToTimeString(nextSet * 24, true, false);
-			UI.setText('next-set-countdown', nextSet);
+			nextSet = Settings.activeLocation[index].IS_STAR_SETTING_NOW ? '- NOW -' : convertHoursToTimeString(nextSet * 24, true, false);
+			UI.setText('next-set-countdown'+index, nextSet);
 		}
 
 
 		// LOCAL TIMES
 		if (!nextRise) {
-			UI.setText('local-rise-time', '---');
+			UI.setText('local-rise-time'+index, '---');
 		} else {
-			UI.setText('local-rise-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_STAR_RISE_TIME * 24, false, true));
+			UI.setText('local-rise-time'+index, convertHoursToTimeString(Settings.activeLocation[index].LOCAL_STAR_RISE_TIME * 24, false, true));
 		}
 
 		if (!nextSet) {
-			UI.setText('local-set-time', '---');
+			UI.setText('local-set-time'+index, '---');
 		} else {
-			UI.setText('local-set-time', convertHoursToTimeString(Settings.activeLocation.LOCAL_STAR_SET_TIME * 24, false, true));
+			UI.setText('local-set-time'+index, convertHoursToTimeString(Settings.activeLocation[index].LOCAL_STAR_SET_TIME * 24, false, true));
 		}
 
 
 		// REAL TIMES
 		let now = getCustomTime();
 		if (!nextRise) {
-			UI.setText('next-rise-time', '---');
+			UI.setText('next-rise-time'+index, '---');
 		} else {
-			const rise = now.setSeconds(now.getSeconds() + (Settings.activeLocation.NEXT_STAR_RISE * 86400));
-			UI.setText('next-rise-time', convertDateToShortTime(new Date(rise)));
+			const rise = now.setSeconds(now.getSeconds() + (Settings.activeLocation[index].NEXT_STAR_RISE * 86400));
+			UI.setText('next-rise-time'+index, convertDateToShortTime(new Date(rise)));
 		}
 
 		now = getCustomTime();
 		if (!nextSet) {
-			UI.setText('next-set-time', '---');
+			UI.setText('next-set-time'+index, '---');
 		} else {
-			const set = now.setSeconds(now.getSeconds() + (Settings.activeLocation.NEXT_STAR_SET * 86400));
-			UI.setText('next-set-time', convertDateToShortTime(new Date(set)));
+			const set = now.setSeconds(now.getSeconds() + (Settings.activeLocation[index].NEXT_STAR_SET * 86400));
+			UI.setText('next-set-time'+index, convertDateToShortTime(new Date(set)));
 		}
 	}
 
-	#update_setIlluminationStatus() {
+	#update_setIlluminationStatus(index) {
 		let scDate = getCustomTime();
 		scDate.setFullYear(scDate.getFullYear() + 930);
 		let scDateString = scDate.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' });
-		UI.setText('illumination-status', Settings.activeLocation.ILLUMINATION_STATUS + '\r\n' + scDateString);
+		UI.setText('illumination-status'+index, Settings.activeLocation[index].ILLUMINATION_STATUS + '\r\n' + scDateString);
 	}
 
 
@@ -356,6 +374,14 @@ class UserInterface {
 			msg.style.transition = '1s ease-out';
 			msg.style.opacity = 0;
 		}, 2000)
+	}
+
+	// RESET LOCATIONS
+	resetLocations(){
+		UI.setMapLocation('Lorville',0);
+		UI.setMapLocation('Orison',1);
+		UI.setMapLocation('New Babbage',2);
+		UI.setMapLocation('Area18',3);
 	}
 
 	// DATA LINK
@@ -519,10 +545,11 @@ class UserInterface {
 			return false;
 		}
 
-		const previousLocation = Settings.activeLocation ?? null;
+		const previousLocation = Settings.activeLocation[index] ?? null;
 
-		Settings.activeLocation = location;
-		Settings.save('activeLocation', Settings.activeLocation.NAME);
+		Settings.activeLocation[index] = location;
+		Settings.save('activeLocation' + index, Settings.activeLocation[index].NAME);
+		console.log('activeLocation' + index, Settings.activeLocation[index].NAME);
 		if (UI.Settings.show) {
 			UI.Settings.toggle();
 			UI.el('location-selection-input').value = '';
@@ -534,7 +561,7 @@ class UserInterface {
 		}
 
 		window.suppressReload = true;
-		parent.location.hash = getHashedLocation();
+		parent.location.hash = getHash();//getHashedLocation(index);
 		setTimeout(() => {
 			window.suppressReload = false;
 		}, 1000);

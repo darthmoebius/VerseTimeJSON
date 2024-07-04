@@ -8,19 +8,52 @@ class Preferences {
 		Preferences.instance = this;
 
 		this.use24HourTime = true;
-		this.activeLocation = null;
+		this.activeLocation = Array(4);
+		console.log('aaaa');
 		this.customTime = 'now';
 		this.useHdTextures = true;
     }
 
     load() {
-		const savedActiveLocation = String(window.localStorage.getItem('activeLocation'));
-		if (window.location.hash === '' && savedActiveLocation !== 'null') {
-			const result = UI.setMapLocation(savedActiveLocation,0);
-			if (!result) Settings.#setDefaultLocation();
+		const savedActiveLocation0 = String(window.localStorage.getItem('activeLocation0'));
+		if (window.location.hash === '' && savedActiveLocation0 !== 'null') {
+			console.log('a',savedActiveLocation0);
+			const result = UI.setMapLocation(savedActiveLocation0,0);
+			if (!result) Settings.#setDefaultLocation(0);
 
 		} else if (window.location.hash === '') {
-			Settings.#setDefaultLocation();
+			console.log('b');
+			Settings.#setDefaultLocation(0);
+		}
+		const savedActiveLocation1 = String(window.localStorage.getItem('activeLocation1'));
+		if (savedActiveLocation1 !== 'null') {
+			console.log('c');
+			const result = UI.setMapLocation(savedActiveLocation1,1);
+			if (!result) Settings.#setDefaultLocation(1);
+
+		} else{
+			console.log('d');
+			Settings.#setDefaultLocation(1);
+		}
+		const savedActiveLocation2 = String(window.localStorage.getItem('activeLocation2'));
+		if (savedActiveLocation2 !== 'null') {
+			console.log('e');
+			const result = UI.setMapLocation(savedActiveLocation2,2);
+			if (!result) Settings.#setDefaultLocation(2);
+
+		} else{
+			console.log('f');
+			Settings.#setDefaultLocation(2);
+		}
+		const savedActiveLocation3 = String(window.localStorage.getItem('activeLocation3'));
+		if (savedActiveLocation3 !== 'null') {
+			console.log('g');
+			const result = UI.setMapLocation(savedActiveLocation3,3);
+			if (!result) Settings.#setDefaultLocation(3);
+
+		} else{
+			console.log('h');
+			Settings.#setDefaultLocation(3);
 		}
 
 		const time24 = window.localStorage.getItem('time24');
@@ -92,12 +125,14 @@ class Preferences {
 		}
 	}
 
-	#setDefaultLocation() {
+	#setDefaultLocation(index) {
+		const defaultLocations = ['Orison','Area18','New Babbage','Lorville'];
+		console.log('asdasd');
 		let result = DB.locations.filter(location => {
-			return location.NAME === 'Orison';
+			return location.NAME === defaultLocations[index];
 		});
-		Settings.activeLocation = result[0];
-		Settings.save('activeLocation', result[0].NAME);
+		Settings.activeLocation[index] = result[0];
+		Settings.save('activeLocation' + index, result[0].NAME);
 	}
 
 	save(key, value) {

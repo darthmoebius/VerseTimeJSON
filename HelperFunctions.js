@@ -179,8 +179,8 @@ export function calculateGreatCircleDistance(x1, y1, z1, x2, y2, z2, radius) {
 	return radius * c;
 }
 
-export function getHashedLocation() {
-	let loc = Settings.activeLocation?.NAME;
+export function getHashedLocation(index) {
+	let loc = Settings.activeLocation[index]?.NAME;
 	if (loc !== undefined) {
 		loc = loc.replaceAll(' ', '_');
 	}
@@ -195,7 +195,7 @@ export function getHashedCustomTime() {
 }
 
 export function getHash() {
-	let loc = getHashedLocation() + getHashedCustomTime()
+	let loc = getHashedLocation(0) + '/' + getHashedLocation(1) + '/' + getHashedLocation(2) + '/' +getHashedLocation(3) + getHashedCustomTime()
 	return loc.replaceAll(' ', '_');
 }
 
