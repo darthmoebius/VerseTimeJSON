@@ -49,10 +49,10 @@ class UserInterface {
 
 	setupEventListeners() {
 		// CLICKS
-		this.listen('click', 'BUTTON-open-settings0', () => {this.selectedElement = 0; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
-		this.listen('click', 'BUTTON-open-settings1', () => {this.selectedElement = 1; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
-		this.listen('click', 'BUTTON-open-settings2', () => {this.selectedElement = 2; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
-		this.listen('click', 'BUTTON-open-settings3', () => {this.selectedElement = 3; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
+		this.listen('click', 'BUTTON-open-settings0', () => {this.openSettings(0); });
+		this.listen('click', 'BUTTON-open-settings1', () => {this.openSettings(1); });
+		this.listen('click', 'BUTTON-open-settings2', () => {this.openSettings(2); });
+		this.listen('click', 'BUTTON-open-settings3', () => {this.openSettings(3); });
 		this.listen('click', 'BUTTON-close-settings', () => { UI.Settings.toggle(); });
 
 		this.listen('click', 'BUTTON-toggle-credits-window', () => { UI.Credits.toggle(); });
@@ -151,10 +151,10 @@ class UserInterface {
 
 
 		// CUSTOM TIME SELECTION
-		this.listen('input', 'time-selection-input', () => {
+		/*this.listen('input', 'time-selection-input', () => {
 			const timeInput = UI.el('time-selection-input').value;
 			UI.setCustomTime(timeInput);
-		})
+		})*/
 
 
 		// TYPING IN LOCATION SEARCH BOX
@@ -181,6 +181,13 @@ class UserInterface {
 				result ? element.classList.remove('hide') : element.classList.add('hide');
 			}
 		});
+	}
+
+	openSettings(i){
+		this.setText('available-locations-title',"Switching #"+(i+1)+" ("+Settings.activeLocation[i].NAME+")")
+		this.selectedElement = i;
+		UI.Settings.toggle(); 
+		UI.el('location-selection-input').focus();
 	}
 
 	// MAIN UPDATE FUNCTIONS
@@ -549,7 +556,6 @@ class UserInterface {
 
 		Settings.activeLocation[index] = location;
 		Settings.save('activeLocation' + index, Settings.activeLocation[index].NAME);
-		console.log('activeLocation' + index, Settings.activeLocation[index].NAME);
 		if (UI.Settings.show) {
 			UI.Settings.toggle();
 			UI.el('location-selection-input').value = '';

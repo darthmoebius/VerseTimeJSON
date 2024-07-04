@@ -331,6 +331,10 @@
 #available-locations-container {
     position: relative;
 }
+#available-locations-title {
+    text-align: center;
+    font-size:x-large;
+}
 
 
 .fade-top, .fade-bottom {
