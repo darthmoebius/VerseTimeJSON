@@ -239,6 +239,7 @@ class UserInterface {
 	#update_setThemeImage(index) {
 		const url = `url('${Settings.activeLocation[index].THEME_IMAGE}')`;
 		if (UI.bgElement[index].style.backgroundImage !== url) UI.bgElement[index].style.backgroundImage = url;
+		//UI.bgElement[index].style.filter = "blur(6px) brightness("+Settings.activeLocation[index].ILLUMINATION_ALPHA+")";
 	}
 
 	#update_setLocationInfo(index) {

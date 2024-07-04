@@ -180,6 +180,49 @@ export default class Location {
 			}
 		}
 	}
+	get ILLUMINATION_ALPHA() {
+		if (this.PARENT.ROTATION_RATE === 0) {
+			return (this.STAR_MAX_ALTITUDE() < 0) ? 0.3 : 0.7;
+
+		} else if (this.LOCAL_STAR_RISE_TIME.toString() === 'NaN') {
+			return (this.STAR_MAX_ALTITUDE() < 0) ? 0.3 : 0.7;
+
+		} else {
+
+			if (this.IS_STAR_RISING_NOW) return 0.4;
+			if (this.IS_STAR_SETTING_NOW) return 0.4;
+
+			let rise = this.LOCAL_STAR_RISE_TIME * 86400;
+			let set = this.LOCAL_STAR_SET_TIME * 86400;
+			let noon = 43200;
+
+			let t = this.LOCAL_TIME;
+
+			if (t > 86400 - 300) {
+				return 0.1;
+			} else if (t > set + 1500) {
+				return 0.2;
+			} else if (t > set) {
+				return 0.3;
+			} else if (t > set - 7200) {
+				return 0.5;
+			} else if (t > noon + 600) {
+				return 0.6;
+			} else if (t > noon - 600) {
+				return 0.7;
+			} else if (t > noon - 3600) {
+				return 0.6;
+			} else if (t > rise) {
+				return 0.5;
+			} else if (t > rise - 1500) {
+				return 0.3;
+			} else if (t > 300) {
+				return 0.2;
+			} else {
+				return 0.1;
+			}
+		}
+	}
 
 	get NEXT_NOON() {
 		let angle = this.HOUR_ANGLE();
