@@ -11,9 +11,17 @@ class UserInterface {
     constructor() {
         if (UserInterface.instance) return UserInterface.instance;
 		UserInterface.instance = this;
-
-		this.bgElement = document.getElementById('selected-location-bg-image');
-		this.bgColor = this.bgElement.style.backgroundColor;
+		this.selectedElement = 0;
+		this.bgElement = new Array(4);
+		this.bgElement[0] = document.getElementById('selected-location-bg-image1');
+		this.bgElement[1] = document.getElementById('selected-location-bg-image2');
+		this.bgElement[2] = document.getElementById('selected-location-bg-image3');
+		this.bgElement[3] = document.getElementById('selected-location-bg-image4');
+		this.bgColor = new Array(4);
+		this.bgColor[0] = this.bgElement[0].style.backgroundColor;
+		this.bgColor[1] = this.bgElement[1].style.backgroundColor;
+		this.bgColor[2] = this.bgElement[2].style.backgroundColor;
+		this.bgColor[3] = this.bgElement[3].style.backgroundColor;
 
 		this.locationSelectedIndex = -1;
 		this.visibleButtons = [];
@@ -37,7 +45,10 @@ class UserInterface {
 
 	setupEventListeners() {
 		// CLICKS
-		this.listen('click', 'BUTTON-open-settings', () => { UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
+		this.listen('click', 'BUTTON-open-settings1', () => {this.selectedElement = 0; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
+		this.listen('click', 'BUTTON-open-settings2', () => {this.selectedElement = 1; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
+		this.listen('click', 'BUTTON-open-settings3', () => {this.selectedElement = 2; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
+		this.listen('click', 'BUTTON-open-settings4', () => {this.selectedElement = 3; UI.Settings.toggle(); UI.el('location-selection-input').focus(); });
 		this.listen('click', 'BUTTON-close-settings', () => { UI.Settings.toggle(); });
 
 		this.listen('click', 'BUTTON-toggle-credits-window', () => { UI.Credits.toggle(); });
@@ -111,26 +122,26 @@ class UserInterface {
 			if (UI.Settings.show && event.key === 'Enter') {
 				let selected = this.getSelectedButton();
 				if(selected) {
-					UI.setMapLocation(selected.dataset.locationName);
+					UI.setMapLocation(selected.dataset.locationName,this.selectedElement);
 					return;
 				}
 
 				let buttons = this.getVisibleButtons();
 				if(buttons && buttons.length > 0) {
-					UI.setMapLocation(buttons[0].dataset.locationName);
+					UI.setMapLocation(buttons[0].dataset.locationName,this.selectedElement);
 				}
 				return;
 			}
 
 			if (event.target.tagName.toLowerCase() === 'input') return;
 
-			if (event.key === '/') {
+			/*if (event.key === '/') {
 				if (!UI.Settings.show) UI.Settings.toggle();
 				this.locationSelectedIndex = -1;
 				this.getSelectedButton()?.classList.remove('selected');
 				UI.el('location-selection-input').focus();
 				return;
-			}
+			}*/
 		})
 
 
@@ -169,8 +180,14 @@ class UserInterface {
 
 	// MAIN UPDATE FUNCTIONS
 	update() {
-		UI.#update_setColors();
-		UI.#update_setThemeImage();
+		UI.#update_setColors(0);
+		UI.#update_setColors(1);
+		UI.#update_setColors(2);
+		UI.#update_setColors(3);
+		UI.#update_setThemeImage(0);
+		UI.#update_setThemeImage(1);
+		UI.#update_setThemeImage(2);
+		UI.#update_setThemeImage(3);
 		UI.#update_setLocationInfo();
 		UI.#update_setRiseAndSetData();
 		UI.#update_setIlluminationStatus();
@@ -183,7 +200,7 @@ class UserInterface {
 		}*/
 	}
 
-	#update_setColors() {
+	#update_setColors(index) {
 		const col = Settings.activeLocation.THEME_COLOR;
 		const colorMain = `rgb(${col.r}, ${col.g}, ${col.b})`;
 		const colorDark = `rgb(${col.r * 0.2}, ${col.g * 0.2}, ${col.b * 0.2})`;
@@ -191,12 +208,12 @@ class UserInterface {
 		document.querySelector(':root').style.setProperty('--theme-color', colorMain);
 		document.querySelector(':root').style.setProperty('--theme-color-dark', colorDark);
 
-		if (UI.bgColor !== colorMain) UI.bgColor = colorMain;
+		if (UI.bgColor[index] !== colorMain) UI.bgColor[index] = colorMain;
 	}
 
-	#update_setThemeImage() {
+	#update_setThemeImage(index) {
 		const url = `url('${Settings.activeLocation.THEME_IMAGE}')`;
-		if (UI.bgElement.style.backgroundImage !== url) UI.bgElement.style.backgroundImage = url;
+		if (UI.bgElement[index].style.backgroundImage !== url) UI.bgElement[index].style.backgroundImage = url;
 	}
 
 	#update_setLocationInfo() {
@@ -494,7 +511,7 @@ class UserInterface {
 	// MAIN INTERFACE
 	// ===============
 
-	setMapLocation(locationName) {
+	setMapLocation(locationName,index) {
 		const location = getLocationByName(locationName);
 
 		if (!location) {
@@ -534,7 +551,7 @@ class UserInterface {
 
 			let el = document.createElement('div');
 			el.className = 'BUTTON-set-location';
-			el.addEventListener('click', function (e) { UI.setMapLocation(loc.NAME); });
+			el.addEventListener('click', function (e) { UI.setMapLocation(loc.NAME,UI.selectedElement); });
 			el.dataset.locationName = loc.NAME;
 
 			let elName = document.createElement('p');

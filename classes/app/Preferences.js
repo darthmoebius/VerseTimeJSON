@@ -16,7 +16,7 @@ class Preferences {
     load() {
 		const savedActiveLocation = String(window.localStorage.getItem('activeLocation'));
 		if (window.location.hash === '' && savedActiveLocation !== 'null') {
-			const result = UI.setMapLocation(savedActiveLocation);
+			const result = UI.setMapLocation(savedActiveLocation,0);
 			if (!result) Settings.#setDefaultLocation();
 
 		} else if (window.location.hash === '') {

@@ -1,4 +1,4 @@
-﻿#BUTTON-open-settings {
+﻿.BUTTON-open-settings {
     margin-top: 1rem;
     padding: 15px 30px;
     border-radius: 25px;
@@ -7,14 +7,14 @@
     user-select: none;
 }
 
-    #BUTTON-open-settings:hover {
+    .BUTTON-open-settings:hover {
         cursor: pointer;
         transition: 0.2s ease-out;
         background-color: rgba(0, 0, 0, 0.15);
         border: 3px solid var(--theme-color);
     }
 
-    #BUTTON-open-settings:active {
+    .BUTTON-open-settings:active {
         cursor: pointer;
         transform: scale(0.97);
         transition: 0.1s ease-out;
@@ -114,7 +114,7 @@
     align-items: center;
 }
 
-#selected-location-bg-image {
+.selected-location-bg-image {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
